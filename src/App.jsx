@@ -1,11 +1,13 @@
+import { RouterProvider } from 'react-router-dom'
 import './App.css'
+import router from './Routes/Routes'
 
 function App() {
 
   return (
-    <>
-      bismillah suru kortesi
-    </>
+    <RouterProvider router={router}>
+
+    </RouterProvider>
   )
 }
 
