@@ -21,7 +21,8 @@ const Navbar = () => {
     const [open, setOpen] = useState(true)
     const routes = [
         { id: 1, path: '/', name: 'Home' },
-        // { id: 2, path: '/product', name: 'Product' },
+        { id: 2, path: '/rooms', name: 'Rooms' },
+        { id: 2, path: '/myBookings', name: 'My-Bookings' },
 
     ];
     // function for user img 
