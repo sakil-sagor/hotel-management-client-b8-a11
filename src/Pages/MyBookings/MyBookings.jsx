@@ -1,9 +1,11 @@
 
 
 const MyBookings = () => {
+
+
     return (
         <div>
-            my bookings page
+
         </div>
     );
 };
