@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 
 
@@ -19,16 +20,16 @@ const ProfileShortcut = ({ loginPhoto }) => {
                     user?.displayName ? <h1 className="text-lg font-semibold text-white">{user?.displayName}</h1> : <p className='text-white '>Name: N/A</p>
                 }
 
-                {/* <div>
+                <div>
                     <ul>
 
                         <li className='ml-2 mt-10 md:mt-0 active border md:border-0  nav-bg '>
-                            <NavLink to='/addBrand'>
-                                <span className="block py-2" >Add-Brand</span>
+                            <NavLink to='/addRooms'>
+                                <span className="block py-2" >Add-Rooms</span>
                             </NavLink>
                         </li>
                     </ul>
-                </div> */}
+                </div>
 
             </div>
             <hr />
