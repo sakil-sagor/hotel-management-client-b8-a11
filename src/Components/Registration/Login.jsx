@@ -5,12 +5,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from '../../Context/AuthProvider';
 const Login = () => {
-
     const { signIn, googleLogin } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
-
-
     const handleLogin = (e) => {
         e.preventDefault();
         // toast.success("Dontaion successfully added")
@@ -18,26 +15,19 @@ const Login = () => {
         const form = new FormData(e.currentTarget);
         const email = form.get('email');
         const password = form.get('password');
-        console.log(email, password);
         signIn(email, password)
             .then(result => {
-                console.log(result.user);
                 toast.success("User login successfully ")
                 setTimeout(function () {
+
                     navigate(location?.state ? location.state : '/');
+                    // navigate(location?.state.pathname ? location.state.pathname : '/');
                 }, 500);
-
-
-
-
-
             })
             .catch(error => {
                 console.error(error);
                 toast.error(error.message)
             })
-
-
     }
     const handleGoogleSignIn = () => {
         googleLogin()

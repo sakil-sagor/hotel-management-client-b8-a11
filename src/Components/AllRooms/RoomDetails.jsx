@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { FaAirbnb, FaBroom, FaHiking, FaHome, FaParking, FaRestroom, FaSmokingBan, FaWifi } from "react-icons/fa";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { ToastContainer, toast } from 'react-toastify';
@@ -12,6 +12,7 @@ import AllReviews from "./AllReviews";
 import ReviewAdd from "./ReviewAdd";
 
 const RoomDetails = () => {
+
     const { user } = useContext(AuthContext);
     const { roomId } = useParams();
     const [singleRoom, setSingleRoom] = useState([])
@@ -19,9 +20,13 @@ const RoomDetails = () => {
     const [bookDate, setBookDate] = useState('')
     const [errorMsg, setErrorMsg] = useState('')
     const [fetchData, setFetchData] = useState(0)
+    const location = useLocation()
     const userEmail = user?.email;
-    useEffect(() => {
+    const navigate = useNavigate();
 
+
+
+    useEffect(() => {
         const fetchProducts = async () => {
             try {
                 let url = `http://localhost:5000/api/v1/rooms/all/${roomId}`
@@ -34,6 +39,9 @@ const RoomDetails = () => {
         }
         fetchProducts();
     }, [roomId, fetchData])
+
+
+
     console.log(singleRoom);
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -41,6 +49,13 @@ const RoomDetails = () => {
             email: userEmail,
             date: bookDate,
             status: true,
+        }
+        console.log(userEmail);
+
+        if (!userEmail) {
+            navigate("/registration", { state: location.pathname });
+
+
         }
         if (singleRoom?.bookingDate?.status) {
 
@@ -116,6 +131,9 @@ const RoomDetails = () => {
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                        <div>
+
                         </div>
                     </div>
                     <div className="col-span-2">
