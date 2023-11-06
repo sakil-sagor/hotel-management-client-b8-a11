@@ -1,7 +1,16 @@
 
 
-const SingleBooking = ({ booking }) => {
+const SingleBooking = ({ booking, handelDelete }) => {
     const { _id, image, bookingDate, price } = booking;
+    // date fixer 
+    const formatCreatedAt = (newdate) => {
+        const date = new Date(newdate);
+        const day = date.getDate();
+        const month = date.getMonth() + 1; // 'long' for the full month name
+        const year = date.getFullYear();
+
+        return `${day}-${month}-${year}`;
+    };
     return (
         <div>
             <div>
@@ -9,13 +18,13 @@ const SingleBooking = ({ booking }) => {
                     <div className="lg:flex justify-between items-center">
                         <div className="flex items-center">
                             <img className="w-16 h-16" src={image} alt="" />
-                            <div className="text-blue-500 font-semibold">
+                            <div className="text-blue-500 font-semibold ml-2">
 
-                                {/* <p> {productName}</p> */}
+                                <p> One Night - {formatCreatedAt(bookingDate?.date)}</p>
                             </div>
                         </div>
                         <div className="text-blue-500 font-semibold text-right">
-                            <p>$ {price}</p>
+                            <p> Price: $ {price}</p>
                         </div>
 
 
@@ -41,12 +50,12 @@ const SingleBooking = ({ booking }) => {
                         <div className="modal-box">
 
                             <p className="py-4 text-xl text-red-600 text-center font-bold">Do you want to remove this product!</p>
-                            {/* <div className="modal-action">
+                            <div className="modal-action">
                                 <label htmlFor={`my_modal_${_id}`} className="btn py-1">No</label>
-                                <label htmlFor={`my_modal_${_id}`} className="btn" onClick={() => handelCancel(_id)}>
+                                <label htmlFor={`my_modal_${_id}`} className="btn" onClick={() => handelDelete(_id)}>
                                     Yes
                                 </label>
-                            </div> */}
+                            </div>
                         </div>
                     </div>
                 </div>

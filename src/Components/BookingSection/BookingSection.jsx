@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from "../../Context/AuthProvider";
 import blue from "../../assets/blue.gif";
@@ -14,6 +14,7 @@ const BookingSection = () => {
     const [loading, setLoading] = useState(true);
     const [fetchData, setFetchData] = useState(0)
 
+    // get all booking from database 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -27,43 +28,32 @@ const BookingSection = () => {
         }
         fetchProducts();
     }, [fetchData])
-    // const handelCancel = (id) => {
 
-    //     console.log(id)
-    //     let link = `https://tenthserver.iitpark.com/addToCart?email=${user?.email}&&id=${id}`
-    //     console.log(link)
-    //     fetch(`https://tenthserver.iitpark.com/addToCart?email=${user?.email}&&id=${id}`, {
-    //         method: "DELETE",
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             if (data.deletedCount > 0) {
-    //                 toast.success("Successfully Removed");
-    //                 const remainingData = carts.filter(user => user._id !== id)
-    //                 setCarts(remainingData)
-    //             }
-    //         });
-    // }
+
+    // make the delete for booking 
+    const handelDelete = (id) => {
+        console.log(id)
+        let link = `https://tenthserver.iitpark.com/addToCart?email=${user?.email}&&id=${id}`
+        console.log(link)
+        fetch(`http://localhost:5000/api/v1/rooms/booking?email=${user?.email}&&id=${id}`, {
+            method: "PATCH",
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.data.modifiedCount > 0) {
+                    toast.success("Successfully Removed");
+                    const remainingData = allBokking.filter(booking => booking._id !== id)
+                    setAllBooking(remainingData)
+                }
+            });
+    }
     console.log(allBokking);
     return (
         <div>
-
-            {/* <div>
-                {
-                    allBokking?.map((booking, ind) => (
-                        <SingleBooking key={ind} booking={booking}></SingleBooking>
-                    ))
-                }
-            </div> */}
-
-
             <div>
-
-
-
-
                 <div>
-                    <h1 className="text-left text-2xl text-blue-700 font-semibold mb-12">You Can Place Order from your Cart Products!</h1>
+                    {/* <h1 className="text-left text-2xl text-blue-700 font-semibold mb-12">You Can Place Order from your Cart Products!</h1> */}
                 </div>
                 <hr />
                 {
@@ -79,10 +69,10 @@ const BookingSection = () => {
                         {
                             !allBokking.length ?
                                 <div>
-                                    <h1 className="text-center text-2xl text-indigo-900 font-semibold mb-12">Oops! You Have no any Cart Products.</h1>
+                                    <h1 className="text-center text-2xl text-indigo-900 font-semibold mb-12">Oops! You Have no any Booked Room .</h1>
                                     <div className="mt-24">
-                                        <h1 className="text-center text-2xl text-indigo-900 font-semibold mb-12">Want to make some Shop...?   </h1>
-                                        <p className="text-center"><NavLink className="transition duration-500 bg-indigo-900 text-white px-10 py-3 rounded font-semibold hover:text-indigo-900 hover:bg-white  d-button-solid border hover:border-indigo-900" to='/'>Shop Now</NavLink></p>
+                                        <h1 className="text-center text-2xl text-indigo-900 font-semibold mb-12">Want to make any Booking...?   </h1>
+                                        <p className="text-center"><NavLink className="transition duration-500 bg-indigo-900 text-white px-10 py-3 rounded font-semibold hover:text-indigo-900 hover:bg-white  d-button-solid border hover:border-indigo-900" to='/rooms'>Find Now</NavLink></p>
                                     </div>
                                 </div>
 
@@ -91,11 +81,11 @@ const BookingSection = () => {
                                     {
                                         allBokking.length &&
                                         <div>
-                                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 px-2">
+                                            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 px-2">
 
                                                 {
                                                     allBokking?.map((booking, ind) => (
-                                                        <SingleBooking key={ind} booking={booking}></SingleBooking>
+                                                        <SingleBooking key={ind} booking={booking} handelDelete={handelDelete}></SingleBooking>
                                                     ))
                                                 }
                                             </div>
