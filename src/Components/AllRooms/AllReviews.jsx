@@ -1,7 +1,9 @@
-import pro1 from '../../assets/pro1.png';
 
+import Rating from 'react-rating';
+import pro1 from '../../assets/pro1.png';
 const AllReviews = ({ singleRoom }) => {
     console.log(singleRoom);
+    // const element = <FontAwesomeIcon icon={faHandsHelping} />
     return (
         <div>
             {
@@ -13,13 +15,15 @@ const AllReviews = ({ singleRoom }) => {
                                 <div className="ml-4">
                                     <p className="text-xl font-semibold">{room.email}</p>
                                     <p className="text-sm text-yellow-500">
-                                        {/* <Rating
+                                        <Rating
+                                            className='text-sm text-yellow-600 mb-2'
                                             initialRating={room?.rating}
                                             readonly
                                             emptySymbol="far fa-star star-icon"
                                             fullSymbol="fas fa-star star-icon"
                                         >
-                                        </Rating> <span className="text-indigo-900 font-semibold">( {room?.rating} )</span> */}
+                                        </Rating>
+                                        <span className="text-indigo-900 font-semibold">( {room?.rating} )</span>
                                     </p>
 
                                 </div>
@@ -38,7 +42,7 @@ const AllReviews = ({ singleRoom }) => {
                 ))
             }
 
-        </div>
+        </div >
     );
 };
 
