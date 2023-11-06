@@ -74,8 +74,8 @@ const AllRooms = () => {
                         :
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
                             {
-                                allRooms.map(room => (
-                                    <SingleRome key={room._id} room={room}></SingleRome>
+                                allRooms?.map(room => (
+                                    <SingleRome key={room?._id} room={room}></SingleRome>
                                 ))
                             }
                         </div>

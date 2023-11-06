@@ -66,9 +66,6 @@ const AddRooms = () => {
         // Other registration form submission logic
         const imageUrl = await uploadImageToImgBB(imageFile);
         formData.image = imageUrl;
-
-        console.log(formData)
-
         fetch('http://localhost:5000/api/v1/rooms/addrooms', {
             method: "POST",
             headers: {
