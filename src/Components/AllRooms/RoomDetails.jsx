@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from "../../Context/AuthProvider";
 import blue from "../../assets/blue.gif";
+import AllReviews from "./AllReviews";
 import ReviewAdd from "./ReviewAdd";
 
 const RoomDetails = () => {
@@ -27,13 +28,12 @@ const RoomDetails = () => {
                 setSingleRoom(response?.data?.data);
                 setLoading(false);
             } catch (error) {
-                console.log(error);
                 setLoading(false);
             }
         }
         fetchProducts();
     }, [])
-    console.log(user.email);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const bookingDate = {
@@ -70,6 +70,7 @@ const RoomDetails = () => {
 
 
     }
+    console.log(singleRoom);
     return (
         <div className="container mx-auto px-2 my-12">
             <div>
@@ -199,7 +200,8 @@ const RoomDetails = () => {
                                 <h2>Comming Soon...</h2>
                             </TabPanel>
                             <TabPanel>
-                                <ReviewAdd></ReviewAdd>
+                                <ReviewAdd roomId={roomId}></ReviewAdd>
+                                <AllReviews singleRoom={singleRoom}></AllReviews>
                             </TabPanel>
                         </Tabs>
                     </div>

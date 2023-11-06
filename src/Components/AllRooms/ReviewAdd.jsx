@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from '../../Context/AuthProvider';
 import blue from "../../assets/blue.gif";
 
-const ReviewAdd = () => {
+const ReviewAdd = ({ roomId }) => {
     const { user } = useContext(AuthContext);
     const userEmail = user?.email;
     const [loading, setLoading] = useState(false)
@@ -37,7 +37,7 @@ const ReviewAdd = () => {
         })
             .then(res => res.json())
             .then(data => {
-
+                console.log(data);
                 if (data.status) {
                     toast.success("success");
 
