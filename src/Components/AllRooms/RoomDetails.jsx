@@ -18,6 +18,7 @@ const RoomDetails = () => {
     const [loading, setLoading] = useState(true);
     const [bookDate, setBookDate] = useState('')
     const [errorMsg, setErrorMsg] = useState('')
+    const [fetchData, setFetchData] = useState(0)
     const userEmail = user?.email;
     useEffect(() => {
 
@@ -32,8 +33,8 @@ const RoomDetails = () => {
             }
         }
         fetchProducts();
-    }, [])
-
+    }, [roomId, fetchData])
+    console.log(singleRoom);
     const handleSubmit = (e) => {
         e.preventDefault();
         const bookingDate = {
@@ -42,12 +43,13 @@ const RoomDetails = () => {
             status: true,
         }
         if (singleRoom?.bookingDate?.status) {
+
             return toast.error("This room is already booked!")
 
         }
         if (bookDate) {
             fetch(`http://localhost:5000/api/v1/rooms/all/${roomId}`, {
-                method: "Put",
+                method: "PUT",
                 headers: {
                     'content-type': 'application/json'
                 },
@@ -56,6 +58,7 @@ const RoomDetails = () => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.status === "success") {
+                        setFetchData(fetchData + 1)
                         toast.success("success");
                         setLoading(false)
                     }
@@ -78,7 +81,10 @@ const RoomDetails = () => {
 
                     <div className="bg-sky-700 lg:col-span-1">
                         <div>
-                            <p>Booked for {singleRoom?.bookingDate?.date}</p>
+                            {
+                                singleRoom?.bookingDate?.status &&
+                                <p>Booked for {singleRoom?.bookDate?.date}</p>
+                            }
 
                             <form className=" border shadow-xl shadow-blue-300 px-2 py-6 md:p-8 rounded-md" onSubmit={handleSubmit}>
                                 <div className='flex flex-col w-full mt-2'>
@@ -200,8 +206,9 @@ const RoomDetails = () => {
                                 <h2>Comming Soon...</h2>
                             </TabPanel>
                             <TabPanel>
-                                <ReviewAdd roomId={roomId}></ReviewAdd>
-                                <AllReviews singleRoom={singleRoom}></AllReviews>
+                                <ReviewAdd singleRoom={singleRoom} roomId={roomId} fetchData={fetchData} setFetchData={setFetchData}></ReviewAdd>
+                                <hr className="my-4" />
+                                <AllReviews singleRoom={singleRoom} ></AllReviews>
                             </TabPanel>
                         </Tabs>
                     </div>

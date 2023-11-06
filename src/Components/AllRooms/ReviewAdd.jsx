@@ -4,7 +4,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from '../../Context/AuthProvider';
 import blue from "../../assets/blue.gif";
 
-const ReviewAdd = ({ roomId }) => {
+const ReviewAdd = ({ roomId, singleRoom, fetchData, setFetchData }) => {
+    const { bookingDate } = singleRoom
     const { user } = useContext(AuthContext);
     const userEmail = user?.email;
     const [loading, setLoading] = useState(false)
@@ -27,7 +28,11 @@ const ReviewAdd = ({ roomId }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true)
-        console.log(formData);
+
+        if (userEmail !== bookingDate?.email) {
+            setLoading(false)
+            return toast.error("Only booked user can make a review");
+        }
         fetch(`http://localhost:5000/api/v1/rooms/all/${roomId}`, {
             method: "POST",
             headers: {
@@ -37,9 +42,9 @@ const ReviewAdd = ({ roomId }) => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.status) {
                     toast.success("success");
+                    setFetchData(fetchData + 1)
 
                 }
                 // setFormData({

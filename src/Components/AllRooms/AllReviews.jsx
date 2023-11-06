@@ -2,18 +2,16 @@
 import Rating from 'react-rating';
 import pro1 from '../../assets/pro1.png';
 const AllReviews = ({ singleRoom }) => {
-    console.log(singleRoom);
-    // const element = <FontAwesomeIcon icon={faHandsHelping} />
     return (
-        <div>
+        <div className='shadow-2xl p-4 bg-indigo-200 rounded-lg'>
             {
                 singleRoom?.review?.map((room, ind) => (
-                    <div key={ind}>
-                        <div className="shadow-2xl p-4 bg-indigo-200 rounded-lg">
+                    <div key={ind} className='mb-6'>
+                        <div className="">
                             <div className="flex items-center">
                                 <img style={{ cursor: 'pointer' }} className="w-12 rounded-full" src={pro1} alt="" />
                                 <div className="ml-4">
-                                    <p className="text-xl font-semibold">{room.email}</p>
+                                    <p className="text-lg font-semibold">{room.email}</p>
                                     <p className="text-sm text-yellow-500">
                                         <Rating
                                             className='text-sm text-yellow-600 mb-2'
@@ -31,7 +29,7 @@ const AllReviews = ({ singleRoom }) => {
 
                                 </div>
                             </div>
-                            <div className="bg-gray-200 p-4 rounded-lg mt-4" style={{ height: "200px" }}>
+                            <div className="bg-gray-200 p-4 rounded-lg " >
                                 <p><i className="fas fa-quote-left text-2xl"></i></p>
                                 <p className="text-gray-500">
                                     {room.feadback}
