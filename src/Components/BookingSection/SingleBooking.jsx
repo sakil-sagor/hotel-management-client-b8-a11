@@ -11,6 +11,8 @@ const SingleBooking = ({ booking, handelDelete }) => {
 
         return `${day}-${month}-${year}`;
     };
+
+
     return (
         <div>
             <div>
@@ -52,7 +54,7 @@ const SingleBooking = ({ booking, handelDelete }) => {
                             <p className="py-4 text-xl text-red-600 text-center font-bold">Do you want to remove this product!</p>
                             <div className="modal-action">
                                 <label htmlFor={`my_modal_${_id}`} className="btn py-1">No</label>
-                                <label htmlFor={`my_modal_${_id}`} className="btn" onClick={() => handelDelete(_id)}>
+                                <label htmlFor={`my_modal_${_id}`} className="btn" onClick={() => handelDelete(_id, bookingDate?.date)}>
                                     Yes
                                 </label>
                             </div>

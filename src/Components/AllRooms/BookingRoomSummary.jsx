@@ -1,8 +1,14 @@
 
 import blue from '../../assets/blue.gif';
 import method from '../../assets/method.jpg';
-const BookingRoomSummary = ({ singleRoom, user, loading, handleBookNow, formatCreatedAt }) => {
+const BookingRoomSummary = ({ singleRoom, user, loading, handleBookNow, formatCreatedAt, bookDate }) => {
     const { image, bookingDate, price, description } = singleRoom;
+
+
+
+
+
+
     return (
         <div>
             <div>
@@ -49,7 +55,7 @@ const BookingRoomSummary = ({ singleRoom, user, loading, handleBookNow, formatCr
                                 <img className="w-24" src={image} alt="" />
                                 <div className="text-indigo-900 font-semibold ml-3">
 
-                                    <p> {formatCreatedAt(bookingDate?.date)}</p>
+                                    <p> {formatCreatedAt(bookDate)}</p>
                                     <p className='text-xs font-normal'>{description.slice(0, 100)}</p>
 
                                 </div>

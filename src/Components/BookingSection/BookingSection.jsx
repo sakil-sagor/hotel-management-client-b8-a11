@@ -30,30 +30,47 @@ const BookingSection = () => {
     }, [fetchData])
 
 
-    // make the delete for booking 
-    const handelDelete = (id) => {
-        console.log(id)
-        let link = `https://tenthserver.iitpark.com/addToCart?email=${user?.email}&&id=${id}`
-        console.log(link)
 
-        if(id){
-console.log(object);
+
+    // make the delete for booking 
+    const handelDelete = (id, orderDate) => {
+        console.log(id, orderDate);
+
+        const currentDate = new Date();
+        const oneDaysBeforeOrderDate = new Date(orderDate);
+        const bookingorderDate = new Date(orderDate);
+        oneDaysBeforeOrderDate.setDate(oneDaysBeforeOrderDate.getDate() - 1);
+        console.log(oneDaysBeforeOrderDate);
+        console.log(currentDate);
+
+        if (currentDate <= oneDaysBeforeOrderDate || currentDate >= bookingorderDate) {
+            fetch(`http://localhost:5000/api/v1/rooms/booking?email=${user?.email}&&id=${id}`, {
+                method: "PATCH",
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.data.modifiedCount > 0) {
+                        toast.success("Successfully Removed");
+                        const remainingData = allBokking.filter(booking => booking._id !== id)
+                        setAllBooking(remainingData)
+                    }
+                });
+        } else {
+            toast.error("Sorry you can not calcel this booking now!");
         }
 
-        fetch(`http://localhost:5000/api/v1/rooms/booking?email=${user?.email}&&id=${id}`, {
-            method: "PATCH",
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                if (data.data.modifiedCount > 0) {
-                    toast.success("Successfully Removed");
-                    const remainingData = allBokking.filter(booking => booking._id !== id)
-                    setAllBooking(remainingData)
-                }
-            });
+
+        // console.log(id)
+        // let link = `https://tenthserver.iitpark.com/addToCart?email=${user?.email}&&id=${id}`
+        // console.log(link)
+
+
+
+
+
     }
-;
+        ;
     return (
         <div>
             <div>

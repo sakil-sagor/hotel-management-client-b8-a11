@@ -48,7 +48,7 @@ const RoomDetails = () => {
     console.log(singleRoom);
 
     const handleSubmit = (e) => {
-        // e.preventDefault();
+        e.preventDefault();
         // if (singleRoom?.bookingDate?.status) {
         //     return toast.error("This room is already booked!")
         // }
@@ -301,7 +301,7 @@ const RoomDetails = () => {
                     orederNow &&
                     <PrivateRoute>
                         <div className="duration-200">
-                            <BookingRoomSummary loading={loading} user={user} singleRoom={singleRoom} handleBookNow={handleBookNow} formatCreatedAt={formatCreatedAt}></BookingRoomSummary>
+                            <BookingRoomSummary loading={loading} user={user} singleRoom={singleRoom} bookDate={bookDate} handleBookNow={handleBookNow} formatCreatedAt={formatCreatedAt}></BookingRoomSummary>
                         </div>
                     </PrivateRoute>
                 }
