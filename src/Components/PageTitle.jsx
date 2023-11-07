@@ -5,7 +5,7 @@ import React from 'react';
 const PageTitle = (props) => {
     const { title, content } = props;
     return (
-        <div className="py-6 md:py-12 lg:py-20 leading-10 px-2 bg-gradient-to-b from-blue-50 to-blue-200">
+        <div className="py-6 md:py-12 lg:py-10 leading-10 px-2 bg-gradient-to-b from-blue-50 to-blue-200">
             <div className="container m-auto full-width-all">
                 <h2 className="font-bold w-ful sm:w3/4 lg:w-2/4 text-pink-500 text-4xl tracking-wide	">{title}</h2>
                 <hr className="w-12 my-4 border-blue-500 border" />

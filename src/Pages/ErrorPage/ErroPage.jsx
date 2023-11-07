@@ -1,12 +1,13 @@
 import { Link, useRouteError } from "react-router-dom";
-
+import errorpic from '../../assets/404.png';
 
 const ErroPage = () => {
     const error = useRouteError();
     return (
         <div className="flex flex-col justify-center items-center mt-20">
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
+            <div>
+                <img src={errorpic} alt="" />
+            </div>
             <p>
                 <i>{error.statusText || error.message}</i>
             </p>

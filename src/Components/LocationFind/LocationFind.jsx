@@ -6,7 +6,7 @@ const LocationFind = () => {
 
     return (
         <div>
-            <TitleBoard titleWord={"Find Us Here"}></TitleBoard>
+
             <div className="py-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center">
                     <div className="px-8">
