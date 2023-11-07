@@ -57,15 +57,8 @@ const BookingSection = () => {
                     }
                 });
         } else {
-            toast.error("Sorry you can not calcel this booking now!");
+            toast.error("Sorry you can not cancel this booking now!");
         }
-
-
-        // console.log(id)
-        // let link = `https://tenthserver.iitpark.com/addToCart?email=${user?.email}&&id=${id}`
-        // console.log(link)
-
-
 
 
 

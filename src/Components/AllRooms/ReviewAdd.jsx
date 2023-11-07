@@ -8,14 +8,17 @@ const ReviewAdd = ({ roomId, singleRoom, fetchData, setFetchData }) => {
     const { bookingDate } = singleRoom
     const { user } = useContext(AuthContext);
     const userEmail = user?.email;
+    const userName = user?.displayName;
     const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({
         rating: '',
         feadback: '',
-        email: userEmail
+        email: userEmail,
+        userName: userName,
+
     });
 
-
+    console.log(userName);
     const handleInputChange = (e) => {
         setFormData({
             ...formData,

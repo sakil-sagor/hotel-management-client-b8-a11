@@ -1,7 +1,7 @@
 
 
 const SingleBooking = ({ booking, handelDelete, ind }) => {
-    const { productId, image, price, item } = booking;
+    const { productId, image, price, item, } = booking;
     console.log(booking);
     // date fixer 
     const formatCreatedAt = (newdate) => {
@@ -22,11 +22,12 @@ const SingleBooking = ({ booking, handelDelete, ind }) => {
                             <img className="w-16 h-16" src={image} alt="" />
                             <div className="text-blue-500 font-semibold ml-2">
 
-                                <p> One Night - {formatCreatedAt(item?.date)}</p>
+                                <p> {item?._id} </p>
+                                <p>Date: {formatCreatedAt(item?.date)}</p>
                             </div>
                         </div>
                         <div className="text-blue-500 font-semibold text-right">
-                            <p> Price: $ {price}</p>
+                            <p> Price: $ {price * item?.bookingSeat}</p>
                         </div>
 
 
@@ -42,19 +43,19 @@ const SingleBooking = ({ booking, handelDelete, ind }) => {
 
                         </div>
                         <button className="transition duration-500 bg-blue-500 text-white px-10 py-2 rounded font-semibold hover:text-blue-500 hover:bg-white  d-button-solid border hover:border-blue-500" >
-                            <label htmlFor={`my_modal_${ind}`} >
+                            <label htmlFor={`my_modal_${ind + 1}`} >
                                 <button  >Update</button>
                             </label>
                         </button>
 
                     </div>
-                    <input type="checkbox" id={`my_modal_${ind}`} className="modal-toggle" />
+                    <input type="checkbox" id={`my_modal_${ind + 1}`} className="modal-toggle" />
                     <div className="modal">
                         <div className="modal-box">
 
                             <p className="py-4 text-xl text-red-600 text-center font-bold">Do you want to remove this product!</p>
                             <div className="modal-action">
-                                <label htmlFor={`my_modal_${ind}`} className="btn py-1">No</label>
+                                <label htmlFor={`my_modal_${ind + 1}`} className="btn py-1">No</label>
                             </div>
                         </div>
                     </div>

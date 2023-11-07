@@ -7,10 +7,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from "../../Context/AuthProvider";
 import PrivateRoute from "../../Routes/PrivateRoute";
-import blue from "../../assets/blue.gif";
 import AllReviews from "./AllReviews";
 import BookingRoomSummary from "./BookingRoomSummary";
 import HotelFacility from "./HotelFacility";
+import IfBookeUser from "./IfBookeUser";
+import NotBookedUser from "./NotBookedUser";
 import ReviewAdd from "./ReviewAdd";
 
 const RoomDetails = () => {
@@ -23,6 +24,7 @@ const RoomDetails = () => {
     const [errorMsg, setErrorMsg] = useState('')
     const [fetchData, setFetchData] = useState(0)
     const [bookingSeat, setBookingSeat] = useState()
+    const [bookedUser, setBookedUser] = useState([])
     const location = useLocation()
     const userEmail = user?.email;
     const userName = user?.displayName;
@@ -39,6 +41,7 @@ const RoomDetails = () => {
                 console.log(response);
                 setSingleRoom(response?.data?.data);
                 setBookedSeat(response?.data?.seatTotal)
+                setBookedUser(response?.data?.bookedUser)
                 setLoading(false);
             } catch (error) {
                 setLoading(false);
@@ -59,6 +62,9 @@ const RoomDetails = () => {
         if ((singleRoom?.totalSeat - bookedSeat) < bookingSeat) {
             return toast.error("You select more than available seat!")
         }
+        if (bookedUser.includes(userEmail)) {
+            return toast.error("You Already book this room!")
+        }
         return setOrderNow(true)
     }
 
@@ -71,6 +77,8 @@ const RoomDetails = () => {
             date: bookDate,
             status: true,
         }
+
+
 
         if (bookDate) {
             fetch(`http://localhost:5000/api/v1/rooms/all/${roomId}`, {
@@ -121,140 +129,11 @@ const RoomDetails = () => {
                         <div className="bg-sky-100 lg:col-span-1 rounded-md">
                             <div>
                                 {
-                                    (singleRoom?.totalSeat - bookedSeat) <= 0 ?
-                                        <div className="text-center">
-                                            <p className="py-2 border text-white text-center font-bold text-xl bg-red-700 rounded-md">Unavailable</p>
 
-                                            <hr className="border-white border-2" />
-                                            <div className="my-3 p-4 flex-">
-                                                <div className="text-black font-semibold ">
-                                                    <div className="bg-white flex justify-between items-center px-3 rounded-md">
-                                                        <p className="text-lg">Price : </p>
-                                                        {
-                                                            singleRoom.discount > 0 ?
-                                                                <div>
-                                                                    <del className="  mb-2 "> {singleRoom?.price}TK / <span className="text-xs">day</span></del>
-                                                                    <p className="mb-2 ">{singleRoom?.price - ((singleRoom?.price * singleRoom?.discount) / 100)}TK / <span className="text-xs">day</span></p>
-                                                                </div>
-                                                                :
-                                                                <div className="py-2">
-
-                                                                    <p className="mb-2 ">{singleRoom?.price - ((singleRoom?.price * singleRoom?.discount) / 100)}TK / <span className="text-xs">day</span></p>
-                                                                </div>
-                                                        }
-
-                                                    </div>
-                                                    <div className="bg-white flex justify-between items-center my-3 p-3 rounded-md ">
-                                                        <p className="text-lg">Room Size : </p>
-
-                                                        <p className="   ">{parseInt(singleRoom?.size)}``<span className="text-xs">feet</span> </p>
-                                                    </div>
-                                                    <div className="bg-white flex justify-between items-center my-3 p-3 rounded-md ">
-                                                        <p className="text-lg">Discount : </p>
-
-                                                        <p className="   ">{parseInt(singleRoom?.discount)} <span className="text-xs">% Eid Offer</span> </p>
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-                                            <button className={`w-full font-semibold text-white py-2 rounded-md bg-sky-700 hover:bg-sky-800 `}>
-                                                Update Booking Date
-                                            </button>
-                                        </div>
-
+                                    bookedUser?.includes(userEmail) ?
+                                        <IfBookeUser singleRoom={singleRoom} bookedSeat={bookedSeat} userEmail={userEmail} fetchData={fetchData} setFetchData={setFetchData}></IfBookeUser>
                                         :
-                                        <div className="flex flex-col">
-                                            <p className="py-2 border text-white text-center font-bold text-xl bg-green-700 rounded-md">Available</p>
-                                            <hr className="border-white border-2" />
-                                            <div className="my-3 p-4 flex-">
-                                                <div className="text-black font-semibold ">
-                                                    <div className="bg-white flex justify-between items-center px-3 rounded-md">
-                                                        <p className="text-lg">Price : </p>
-                                                        {
-                                                            singleRoom.discount > 0 ?
-                                                                <div>
-                                                                    <del className="  mb-2 "> {singleRoom?.price}TK / <span className="text-xs">day</span></del>
-                                                                    <p className="mb-2 ">{singleRoom?.price - ((singleRoom?.price * singleRoom?.discount) / 100)}TK / <span className="text-xs">day</span></p>
-                                                                </div>
-                                                                :
-                                                                <div className="py-2">
-
-                                                                    <p className="mb-2 ">{singleRoom?.price - ((singleRoom?.price * singleRoom?.discount) / 100)}TK / <span className="text-xs">day</span></p>
-                                                                </div>
-                                                        }
-
-                                                    </div>
-                                                    <div className="bg-white flex justify-between items-center my-3 p-3 rounded-md ">
-                                                        <p className="text-lg">Room Size : </p>
-
-                                                        <p className="   ">{parseInt(singleRoom?.size)}``<span className="text-xs">feet</span> </p>
-                                                    </div>
-                                                    <div className="bg-white flex justify-between items-center my-3 p-3 rounded-md ">
-                                                        <p className="text-lg">Discount : </p>
-
-                                                        <p className="   ">{parseInt(singleRoom?.discount)} <span className="text-xs">% Eid Offer</span> </p>
-                                                    </div>
-                                                    <div className="bg-white flex justify-between items-center my-3 p-3 rounded-md ">
-                                                        <p className="text-lg">Avaiable Seat : </p>
-
-                                                        <p className="   ">{singleRoom?.totalSeat - bookedSeat} <span className="text-xs"></span> </p>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div className="flex-grow">
-                                                <form className=" border shadow-xl shadow-blue-300 px-2   rounded-md" onSubmit={handleSubmit}>
-                                                    <div className='flex flex-col w-full mt-2'>
-                                                        <div className='w-1/2'>
-                                                            <label className=' text-gray-600 font-semibold block  ' htmlFor='totalSeat'>
-                                                                Total Seat
-                                                            </label>
-                                                            <input
-                                                                className='py-1 px-2 w-full rounded-md border border-gray-300'
-                                                                type="text"
-                                                                name="totalSeat"
-                                                                placeholder="totalSeat"
-                                                                value={bookingSeat}
-                                                                onChange={(e) => setBookingSeat(e.target.value)}
-
-
-
-                                                            />
-                                                        </div>
-                                                        <div className='w-1/2'>
-                                                            <label className=' text-gray-600 font-semibold block ' htmlFor='date'>
-                                                                Date
-                                                            </label>
-                                                            <input
-                                                                className='py-1 px-2 w-full rounded-md border border-gray-300'
-                                                                type="date" step="1"
-                                                                // type='number'
-                                                                required
-                                                                name="date"
-                                                                min="0" max="100"
-                                                                placeholder=" Discount ( 0 - 100 )"
-                                                                value={bookDate}
-                                                                onChange={(e) => setBookDate(e.target.value)}
-
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className=' mt-4 '>
-                                                        <div className='flex items-center justify-center h-10  bg-indigo-500 rounded'>
-                                                            <button className=' '>
-                                                                <img className={`w-8 text-center  mx-auto ${!loading && "hidden"}`} src={blue} alt="" />
-                                                            </button>
-                                                            <button className={`w-full h-full  text-white py-18 ${loading && "hidden"}`}>
-                                                                <span  >
-                                                                    Book Now
-                                                                </span>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
+                                        <NotBookedUser singleRoom={singleRoom} loading={loading} bookedSeat={bookedSeat} setBookDate={setBookDate} bookDate={bookDate} bookingSeat={bookingSeat} setBookingSeat={setBookingSeat} handleSubmit={handleSubmit}></NotBookedUser>
                                 }
 
 
