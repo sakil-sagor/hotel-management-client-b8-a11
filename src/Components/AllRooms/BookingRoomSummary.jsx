@@ -1,7 +1,7 @@
 
 import blue from '../../assets/blue.gif';
 import method from '../../assets/method.jpg';
-const BookingRoomSummary = ({ singleRoom, user, loading, handleBookNow, formatCreatedAt, bookDate }) => {
+const BookingRoomSummary = ({ singleRoom, user, loading, handleBookNow, formatCreatedAt, bookDate, bookingSeat }) => {
     const { image, bookingDate, price, description } = singleRoom;
 
 
@@ -63,9 +63,19 @@ const BookingRoomSummary = ({ singleRoom, user, loading, handleBookNow, formatCr
                             </div>
 
                             <div className="text-indigo-900 flex lg:block justify-end font-semibold text-right lg:col-span-1">
-                                <p>$ {price}</p>
-                                <div className="text-indigo-900 font-semibold ml-2">
-                                    <p className="text-right"> X  1 Day </p>
+
+
+                                <div className="text-indigo-900 font-semibold  flex justify-between">
+                                    <p className="text-right"> Price:   </p>
+                                    <p className="text-right"> $ {price}  </p>
+                                </div>
+                                <div className="text-indigo-900 font-semibold  flex justify-between">
+                                    <p className="text-right"> Seat:   </p>
+                                    <p className="text-right"> {bookingSeat}  </p>
+                                </div>
+                                <div className="text-indigo-900 font-semibold  flex justify-between">
+                                    <p className="text-right"> Duration:   </p>
+                                    <p className="text-right"> 1 Day </p>
                                 </div>
                             </div>
                         </div>
@@ -73,7 +83,7 @@ const BookingRoomSummary = ({ singleRoom, user, loading, handleBookNow, formatCr
                         <hr className="my-6" />
 
                         <div className="text-indigo-900 font-semibold">
-                            <p className="text-right">Total : $ {price}</p>
+                            <p className="text-right">Total : $ {price * bookingSeat}</p>
                         </div>
                     </div>
                 </div>

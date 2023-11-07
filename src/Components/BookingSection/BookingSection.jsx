@@ -30,11 +30,11 @@ const BookingSection = () => {
     }, [fetchData])
 
 
-
+    console.log(allBokking);
 
     // make the delete for booking 
-    const handelDelete = (id, orderDate) => {
-        console.log(id, orderDate);
+    const handelDelete = (productId, orderId, orderDate) => {
+        console.log(productId, orderId, orderDate);
 
         const currentDate = new Date();
         const oneDaysBeforeOrderDate = new Date(orderDate);
@@ -44,15 +44,15 @@ const BookingSection = () => {
         console.log(currentDate);
 
         if (currentDate <= oneDaysBeforeOrderDate || currentDate >= bookingorderDate) {
-            fetch(`http://localhost:5000/api/v1/rooms/booking?email=${user?.email}&&id=${id}`, {
-                method: "PATCH",
+            fetch(`http://localhost:5000/api/v1/rooms/booking?orderId=${orderId}&&productId=${productId}`, {
+                method: "DELETE",
             })
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);
-                    if (data.data.modifiedCount > 0) {
+                    if (data.status === 'success') {
                         toast.success("Successfully Removed");
-                        const remainingData = allBokking.filter(booking => booking._id !== id)
+                        const remainingData = allBokking.filter(booking => booking?.item?._id !== orderId)
                         setAllBooking(remainingData)
                     }
                 });
@@ -107,7 +107,7 @@ const BookingSection = () => {
 
                                                 {
                                                     allBokking?.map((booking, ind) => (
-                                                        <SingleBooking key={ind} booking={booking} handelDelete={handelDelete}></SingleBooking>
+                                                        <SingleBooking key={ind} booking={booking} ind={ind} handelDelete={handelDelete}></SingleBooking>
                                                     ))
                                                 }
                                             </div>

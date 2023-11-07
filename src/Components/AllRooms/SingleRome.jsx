@@ -1,8 +1,19 @@
+import { useState } from "react";
 import Rating from "react-rating";
 import { Link } from "react-router-dom";
 
 const SingleRome = ({ room }) => {
-    const { _id, image, price, discount, rating, review, bookingDate } = room;
+    const { _id, image, price, discount, rating, review, bookingDate, totalSeat } = room;
+    const [bookingSeat, setBookingSeat] = useState(0)
+
+
+    const bookingSeatTotal = () => {
+        let seatTotal = 0;
+        bookingDate?.forEach((item) => {
+            seatTotal += item.bookingSeat;
+        });
+        return seatTotal;
+    }
 
     const makeRatingAvarage = (review) => {
         let sum = 0;
@@ -40,10 +51,10 @@ const SingleRome = ({ room }) => {
 
                 </div>
                 {
-                    bookingDate?.status &&
+                    bookingSeatTotal() >= totalSeat &&
 
                     <div className=" bg-red-800 py-2 px-2 absolute top-0 right-0 text-white font-semibold rounded-md flex justify-between items-center">
-                        <p>Booked</p>
+                        <p>Unavailable</p>
                     </div>
                 }
 

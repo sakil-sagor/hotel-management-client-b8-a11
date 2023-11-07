@@ -17,14 +17,16 @@ const RoomDetails = () => {
     const [orederNow, setOrderNow] = useState(false)
     const { user } = useContext(AuthContext);
     const { roomId } = useParams();
-    const [singleRoom, setSingleRoom] = useState([])
+    const [singleRoom, setSingleRoom] = useState({})
     const [loading, setLoading] = useState(true);
-    const [bookDate, setBookDate] = useState('')
+    const [bookDate, setBookDate] = useState(0)
     const [errorMsg, setErrorMsg] = useState('')
     const [fetchData, setFetchData] = useState(0)
+    const [bookingSeat, setBookingSeat] = useState()
     const location = useLocation()
     const userEmail = user?.email;
     const userName = user?.displayName;
+    const [bookedSeat, setBookedSeat] = useState(0)
     const navigate = useNavigate();
 
 
@@ -34,7 +36,9 @@ const RoomDetails = () => {
             try {
                 let url = `http://localhost:5000/api/v1/rooms/all/${roomId}`
                 const response = await axios.get(url);
+                console.log(response);
                 setSingleRoom(response?.data?.data);
+                setBookedSeat(response?.data?.seatTotal)
                 setLoading(false);
             } catch (error) {
                 setLoading(false);
@@ -47,28 +51,27 @@ const RoomDetails = () => {
 
     console.log(singleRoom);
 
+
+
+    // click for go to confirm booking page 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // if (singleRoom?.bookingDate?.status) {
-        //     return toast.error("This room is already booked!")
-        // }
-        // if (!userEmail) {
-        //     navigate("/registration", { state: location.pathname });
-        // }
+        if ((singleRoom?.totalSeat - bookedSeat) < bookingSeat) {
+            return toast.error("You select more than available seat!")
+        }
         return setOrderNow(true)
     }
+
     // book now area 
     const handleBookNow = (e) => {
         e.preventDefault();
         const bookingDate = {
             email: (userEmail),
+            bookingSeat: bookingSeat,
             date: bookDate,
             status: true,
         }
-        if (singleRoom?.bookingDate?.status) {
-            return toast.error("This room is already booked!")
-        }
-        console.log(bookingDate);
+
         if (bookDate) {
             fetch(`http://localhost:5000/api/v1/rooms/all/${roomId}`, {
                 method: "PUT",
@@ -83,6 +86,9 @@ const RoomDetails = () => {
                         setFetchData(fetchData + 1)
                         toast.success("success");
                         setLoading(false)
+                        setOrderNow(false)
+                        setBookingSeat('')
+                        setBookDate('')
                     }
                     if (data.error) {
                         toast.error(" failed");
@@ -115,10 +121,10 @@ const RoomDetails = () => {
                         <div className="bg-sky-100 lg:col-span-1 rounded-md">
                             <div>
                                 {
-                                    singleRoom?.bookingDate?.status ?
+                                    (singleRoom?.totalSeat - bookedSeat) <= 0 ?
                                         <div className="text-center">
                                             <p className="py-2 border text-white text-center font-bold text-xl bg-red-700 rounded-md">Unavailable</p>
-                                            <p className="text-lg my-2">Booked for {formatCreatedAt(singleRoom?.bookingDate?.date)}</p>
+
                                             <hr className="border-white border-2" />
                                             <div className="my-3 p-4 flex-">
                                                 <div className="text-black font-semibold ">
@@ -148,6 +154,7 @@ const RoomDetails = () => {
 
                                                         <p className="   ">{parseInt(singleRoom?.discount)} <span className="text-xs">% Eid Offer</span> </p>
                                                     </div>
+
 
                                                 </div>
                                             </div>
@@ -188,27 +195,50 @@ const RoomDetails = () => {
 
                                                         <p className="   ">{parseInt(singleRoom?.discount)} <span className="text-xs">% Eid Offer</span> </p>
                                                     </div>
+                                                    <div className="bg-white flex justify-between items-center my-3 p-3 rounded-md ">
+                                                        <p className="text-lg">Avaiable Seat : </p>
+
+                                                        <p className="   ">{singleRoom?.totalSeat - bookedSeat} <span className="text-xs"></span> </p>
+                                                    </div>
 
                                                 </div>
                                             </div>
                                             <div className="flex-grow">
                                                 <form className=" border shadow-xl shadow-blue-300 px-2   rounded-md" onSubmit={handleSubmit}>
                                                     <div className='flex flex-col w-full mt-2'>
-                                                        <label className=' text-gray-600 font-semibold block ' htmlFor='date'>
-                                                            Date
-                                                        </label>
-                                                        <input
-                                                            className='py-1 px-2 w-full rounded-md border border-gray-300'
-                                                            type="date" step="1"
-                                                            // type='number'
-                                                            required
-                                                            name="date"
-                                                            min="0" max="100"
-                                                            placeholder=" Discount ( 0 - 100 )"
-                                                            value={bookDate}
-                                                            onChange={(e) => setBookDate(e.target.value)}
+                                                        <div className='w-1/2'>
+                                                            <label className=' text-gray-600 font-semibold block  ' htmlFor='totalSeat'>
+                                                                Total Seat
+                                                            </label>
+                                                            <input
+                                                                className='py-1 px-2 w-full rounded-md border border-gray-300'
+                                                                type="text"
+                                                                name="totalSeat"
+                                                                placeholder="totalSeat"
+                                                                value={bookingSeat}
+                                                                onChange={(e) => setBookingSeat(e.target.value)}
 
-                                                        />
+
+
+                                                            />
+                                                        </div>
+                                                        <div className='w-1/2'>
+                                                            <label className=' text-gray-600 font-semibold block ' htmlFor='date'>
+                                                                Date
+                                                            </label>
+                                                            <input
+                                                                className='py-1 px-2 w-full rounded-md border border-gray-300'
+                                                                type="date" step="1"
+                                                                // type='number'
+                                                                required
+                                                                name="date"
+                                                                min="0" max="100"
+                                                                placeholder=" Discount ( 0 - 100 )"
+                                                                value={bookDate}
+                                                                onChange={(e) => setBookDate(e.target.value)}
+
+                                                            />
+                                                        </div>
                                                     </div>
                                                     <div className=' mt-4 '>
                                                         <div className='flex items-center justify-center h-10  bg-indigo-500 rounded'>
@@ -301,7 +331,7 @@ const RoomDetails = () => {
                     orederNow &&
                     <PrivateRoute>
                         <div className="duration-200">
-                            <BookingRoomSummary loading={loading} user={user} singleRoom={singleRoom} bookDate={bookDate} handleBookNow={handleBookNow} formatCreatedAt={formatCreatedAt}></BookingRoomSummary>
+                            <BookingRoomSummary loading={loading} user={user} bookingSeat={bookingSeat} singleRoom={singleRoom} bookDate={bookDate} handleBookNow={handleBookNow} formatCreatedAt={formatCreatedAt}></BookingRoomSummary>
                         </div>
                     </PrivateRoute>
                 }

@@ -40,7 +40,7 @@ const AllRooms = () => {
     // if (loading) {
     //     return <Loading></Loading>
     // }
-    console.log(loading);
+    // console.log(loading);
     return (
         <div>
             <div className="py-4">

@@ -14,7 +14,8 @@ const AddRooms = () => {
         price: '',
         description: '',
         discount: '',
-        image: ''
+        image: '',
+        totalSeat: ''
 
     });
 
@@ -66,6 +67,8 @@ const AddRooms = () => {
         // Other registration form submission logic
         const imageUrl = await uploadImageToImgBB(imageFile);
         formData.image = imageUrl;
+
+        console.log(formData);
         fetch('http://localhost:5000/api/v1/rooms/addrooms', {
             method: "POST",
             headers: {
@@ -85,7 +88,8 @@ const AddRooms = () => {
                 //     price: '',
                 //     description: '',
                 //     discount: '',
-                //     image: ''
+                //     image: '',
+                //     totalSeat: ''
 
                 // });
 
@@ -145,21 +149,19 @@ const AddRooms = () => {
 
 
                                     </div>
-
-
                                     <div className='flex space-x-4 justify-between mt-2'>
-
                                         <div className='w-1/2'>
-                                            <label className=' text-gray-600 font-semibold block  ' htmlFor='image'>
-                                                Image
+                                            <label className=' text-gray-600 font-semibold block  ' htmlFor='totalSeat'>
+                                                Total Seat
                                             </label>
                                             <input
-                                                id='image'
-                                                className='py-1 px-2 rounded-md'
-                                                type="file"
-                                                accept="image/*"
+                                                className='py-1 px-2 w-full rounded-md border border-gray-300'
+                                                type="text"
+                                                name="totalSeat"
+                                                placeholder="totalSeat"
+                                                value={formData.totalSeat}
+                                                onChange={handleInputChange}
 
-                                                onChange={handleImageUpload}
                                             />
                                         </div>
                                         <div className='w-1/2'>
@@ -179,6 +181,26 @@ const AddRooms = () => {
 
                                             />
                                         </div>
+
+
+                                    </div>
+
+
+                                    <div className='flex space-x-4 justify-between mt-2'>
+                                        <div className='w-1/2'>
+                                            <label className=' text-gray-600 font-semibold block  ' htmlFor='image'>
+                                                Image
+                                            </label>
+                                            <input
+                                                id='image'
+                                                className='py-1 px-2 rounded-md'
+                                                type="file"
+                                                accept="image/*"
+
+                                                onChange={handleImageUpload}
+                                            />
+                                        </div>
+
                                     </div>
 
                                     <div className='flex flex-col w-full mt-2'>

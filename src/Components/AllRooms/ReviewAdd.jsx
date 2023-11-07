@@ -29,10 +29,10 @@ const ReviewAdd = ({ roomId, singleRoom, fetchData, setFetchData }) => {
         e.preventDefault();
         setLoading(true)
 
-        if (userEmail !== bookingDate?.email) {
-            setLoading(false)
-            return toast.error("Only booked user can make a review");
-        }
+        // if (userEmail !== bookingDate?.email) {
+        //     setLoading(false)
+        //     return toast.error("Only booked user can make a review");
+        // }
         fetch(`http://localhost:5000/api/v1/rooms/all/${roomId}`, {
             method: "POST",
             headers: {
@@ -42,7 +42,7 @@ const ReviewAdd = ({ roomId, singleRoom, fetchData, setFetchData }) => {
         })
             .then(res => res.json())
             .then(data => {
-                if (data.status) {
+                if (data.status === "success") {
                     toast.success("success");
                     setFetchData(fetchData + 1)
 
@@ -58,8 +58,7 @@ const ReviewAdd = ({ roomId, singleRoom, fetchData, setFetchData }) => {
 
                 setLoading(false)
                 if (data.error) {
-
-                    toast.error(" failed");
+                    toast.error(data.error);
                 }
             })
 
