@@ -1,8 +1,8 @@
 
 import blue from '../../assets/blue.gif';
 import method from '../../assets/method.jpg';
-const BookingRoomSummary = ({ singleRoom, user, loading, handleBookNow }) => {
-    const { image, bookingDate, price, } = singleRoom;
+const BookingRoomSummary = ({ singleRoom, user, loading, handleBookNow, formatCreatedAt }) => {
+    const { image, bookingDate, price, description } = singleRoom;
     return (
         <div>
             <div>
@@ -35,7 +35,7 @@ const BookingRoomSummary = ({ singleRoom, user, loading, handleBookNow }) => {
                                     </button>
                                     <button className={`w-full h-full  text-white py-18 ${loading && "hidden"}`}>
                                         <span  >
-                                            Book Now
+                                            Make Order
                                         </span>
                                     </button>
                                 </div>
@@ -44,21 +44,26 @@ const BookingRoomSummary = ({ singleRoom, user, loading, handleBookNow }) => {
 
                     </div>
                     <div className="px-2 md:px-4 py-6 border-2 text-lg">
-                        <div className="lg:flex justify-between items-center">
-                            <div className="flex items-center">
+                        <div className="lg:grid grid-cols-3 justify-between items-center">
+                            <div className="flex lg:col-span-2">
                                 <img className="w-24" src={image} alt="" />
-                                <div className="text-indigo-900 font-semibold">
+                                <div className="text-indigo-900 font-semibold ml-3">
 
-                                    {/* <p> {bookingDate.date}</p> */}
+                                    <p> {formatCreatedAt(bookingDate?.date)}</p>
+                                    <p className='text-xs font-normal'>{description.slice(0, 100)}</p>
+
+                                </div>
+
+                            </div>
+
+                            <div className="text-indigo-900 flex lg:block justify-end font-semibold text-right lg:col-span-1">
+                                <p>$ {price}</p>
+                                <div className="text-indigo-900 font-semibold ml-2">
+                                    <p className="text-right"> X  1 Day </p>
                                 </div>
                             </div>
-                            <div className="text-indigo-900 font-semibold text-right">
-                                <p>$ {price}</p>
-                            </div>
                         </div>
-                        <div className="text-indigo-900 font-semibold">
-                            <p className="text-right"> X  1 Day </p>
-                        </div>
+
                         <hr className="my-6" />
 
                         <div className="text-indigo-900 font-semibold">

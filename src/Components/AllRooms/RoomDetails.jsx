@@ -65,6 +65,9 @@ const RoomDetails = () => {
             date: bookDate,
             status: true,
         }
+        if (singleRoom?.bookingDate?.status) {
+            return toast.error("This room is already booked!")
+        }
         console.log(bookingDate);
         if (bookDate) {
             fetch(`http://localhost:5000/api/v1/rooms/all/${roomId}`, {
@@ -298,7 +301,7 @@ const RoomDetails = () => {
                     orederNow &&
                     <PrivateRoute>
                         <div className="duration-200">
-                            <BookingRoomSummary loading={loading} user={user} singleRoom={singleRoom} handleBookNow={handleBookNow}></BookingRoomSummary>
+                            <BookingRoomSummary loading={loading} user={user} singleRoom={singleRoom} handleBookNow={handleBookNow} formatCreatedAt={formatCreatedAt}></BookingRoomSummary>
                         </div>
                     </PrivateRoute>
                 }

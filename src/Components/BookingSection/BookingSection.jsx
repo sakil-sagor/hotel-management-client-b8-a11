@@ -35,6 +35,11 @@ const BookingSection = () => {
         console.log(id)
         let link = `https://tenthserver.iitpark.com/addToCart?email=${user?.email}&&id=${id}`
         console.log(link)
+
+        if(id){
+console.log(object);
+        }
+
         fetch(`http://localhost:5000/api/v1/rooms/booking?email=${user?.email}&&id=${id}`, {
             method: "PATCH",
         })
@@ -48,7 +53,7 @@ const BookingSection = () => {
                 }
             });
     }
-    console.log(allBokking);
+;
     return (
         <div>
             <div>
