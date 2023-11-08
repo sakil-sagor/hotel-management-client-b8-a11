@@ -62,43 +62,6 @@ const RoomDetails = () => {
         return setOrderNow(true)
     }
 
-    // book now area 
-    // const handleBookNow = (e) => {
-    //     e.preventDefault();
-    //     const bookingDate = {
-    //         email: (userEmail),
-    //         bookingSeat: bookingSeat,
-    //         date: bookDate,
-    //         status: true,
-    //     }
-    //     if (bookDate) {
-    //         fetch(`http://localhost:5000/api/v1/rooms/all/${roomId}`, {
-    //             method: "PUT",
-    //             headers: {
-    //                 'content-type': 'application/json'
-    //             },
-    //             body: JSON.stringify(bookingDate)
-    //         })
-    //             .then(res => res.json())
-    //             .then(data => {
-    //                 if (data.status === "success") {
-    //                     setFetchData(fetchData + 1)
-    //                     toast.success("success");
-    //                     setLoading(false)
-    //                     setOrderNow(false)
-    //                     setBookingSeat('')
-    //                     setBookDate('')
-    //                 }
-    //                 if (data.error) {
-    //                     toast.error(" failed");
-    //                     setLoading(false)
-    //                 }
-    //             })
-    //     } else {
-    //         toast.error("Please Select a date for booking")
-    //     }
-    // }
-
     const handleBookNow = async (e) => {
         e.preventDefault();
         const bookingDate = {
@@ -107,7 +70,6 @@ const RoomDetails = () => {
             date: bookDate,
             status: true,
         }
-
         if (bookDate) {
             try {
                 const response = await axiosSecure.put(`http://localhost:5000/api/v1/rooms/all/${roomId}`, bookingDate, {
@@ -115,9 +77,7 @@ const RoomDetails = () => {
                         'Content-Type': 'application/json',
                     },
                 });
-
                 const data = response.data;
-
                 if (data.status === "success") {
                     setFetchData(fetchData + 1);
                     toast.success("success");
@@ -164,7 +124,7 @@ const RoomDetails = () => {
                                 {
 
                                     bookedUser?.includes(userEmail) ?
-                                        <IfBookeUser singleRoom={singleRoom} bookedSeat={bookedSeat} userEmail={userEmail} fetchData={fetchData} setFetchData={setFetchData}></IfBookeUser>
+                                        <IfBookeUser singleRoom={singleRoom} bookedUser={bookedUser} bookedSeat={bookedSeat} userEmail={userEmail} fetchData={fetchData} setFetchData={setFetchData}></IfBookeUser>
                                         :
                                         <NotBookedUser singleRoom={singleRoom} loading={loading} bookedSeat={bookedSeat} setBookDate={setBookDate} bookDate={bookDate} bookingSeat={bookingSeat} setBookingSeat={setBookingSeat} handleSubmit={handleSubmit}></NotBookedUser>
                                 }
@@ -177,8 +137,8 @@ const RoomDetails = () => {
                             <div className="relative">
                                 <img className="w-full" src={singleRoom?.image} alt="" />
                                 <div className=" bg-black shadow-xl py-4 absolute  bottom-0 w-full opacity-70">
-                                    <div className="flex justify-between">
-                                        <p className="text-white font-semibold  ">Size: {parseInt(singleRoom?.size)}``<span className="text-xs">feet</span> </p>
+                                    <div className="flex justify-end pr-4">
+
 
                                         {
                                             singleRoom.discount > 0 ?

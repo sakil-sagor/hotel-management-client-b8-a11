@@ -1,6 +1,6 @@
 import UpdateBooking from "../UpdateBooking/UpdateBooking";
 
-const IfBookeUser = ({ singleRoom, bookedSeat, userEmail, setFetchData, fetchData }) => {
+const IfBookeUser = ({ singleRoom, bookedSeat, userEmail, setFetchData, fetchData, bookedUser }) => {
     // console.log(userEmail);
     const orderDate = singleRoom?.bookingDate?.find(room => room?.email === userEmail)
     const formatCreatedAt = (newdate) => {
@@ -15,7 +15,7 @@ const IfBookeUser = ({ singleRoom, bookedSeat, userEmail, setFetchData, fetchDat
         <div>
             <div className="text-center">
                 {
-                    (singleRoom?.totalSeat - bookedSeat) <= 0 ?
+                    bookedUser?.includes(userEmail) ?
                         <p className="py-2 border text-white text-center font-bold text-xl bg-red-700 rounded-md">Unavailable</p>
                         :
                         <p className="py-2 border text-white text-center font-bold text-xl bg-green-700 rounded-md">Available</p>

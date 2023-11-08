@@ -14,7 +14,7 @@ const BookingSection = () => {
     const [loading, setLoading] = useState(true);
     const [fetchData, setFetchData] = useState(0)
     const axiosSecure = useAxios();
-
+    console.log(allBokking);
     // get all booking from database 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -41,7 +41,7 @@ const BookingSection = () => {
         console.log(oneDaysBeforeOrderDate);
         console.log(currentDate);
 
-        if (currentDate <= oneDaysBeforeOrderDate || currentDate >= bookingorderDate) {
+        if (currentDate <= oneDaysBeforeOrderDate) {
             try {
                 const response = await axiosSecure.delete(`http://localhost:5000/api/v1/rooms/booking?orderId=${orderId}&&productId=${productId}`);
 
@@ -97,7 +97,7 @@ const BookingSection = () => {
 
                                                 {
                                                     allBokking?.map((booking, ind) => (
-                                                        <SingleBooking key={ind} booking={booking} ind={ind} handelDelete={handelDelete}></SingleBooking>
+                                                        <SingleBooking key={ind} booking={booking} ind={ind} handelDelete={handelDelete} fetchData={fetchData} setFetchData={setFetchData}></SingleBooking>
                                                     ))
                                                 }
                                             </div>
