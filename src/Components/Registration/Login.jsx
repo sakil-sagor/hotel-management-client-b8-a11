@@ -50,7 +50,7 @@ const Login = () => {
             const result = await signIn(email, password);
             console.log(result?.user?.email);
 
-            await axiosSecure.post('/accesstoken/generatetoken', { email: result?.user?.email });
+            await axiosSecure.post('https://assignment11ser.iitpark.com/api/v1/accesstoken/generatetoken', { email: result?.user?.email });
 
             toast.success("User login successfully");
             setTimeout(function () {
@@ -61,21 +61,44 @@ const Login = () => {
             toast.error(error.message);
         }
     }
-    const handleGoogleSignIn = () => {
-        googleLogin()
-            .then(result => {
-                console.log(result.user)
-                // navigate(location?.state ? location.state : '/');
-                toast.success("User Register successfully ")
+    // const handleGoogleSignIn = () => {
+    //     googleLogin()
+    //         .then(result => {
+    //             console.log(result.user)
+    //             // navigate(location?.state ? location.state : '/');
+    //             toast.success("User Register successfully ")
+    //             setTimeout(function () {
+    //                 navigate(location?.state ? location.state : '/');
+    //             }, 500);
+    //         })
+    //         .catch(error => {
+    //             console.error(error)
+    //             toast.error(error.message)
+    //         })
+    // }
+
+
+    const handleGoogleSignIn = async () => {
+        try {
+            const result = await googleLogin();
+            console.log(result.user);
+            await axiosSecure.post('https://assignment11ser.iitpark.com/api/v1/accesstoken/generatetoken', { email: result?.user?.email });
+            toast.success("User Register successfully ");
+
+            if (result?.user?.email) {
                 setTimeout(function () {
                     navigate(location?.state ? location.state : '/');
                 }, 500);
-            })
-            .catch(error => {
-                console.error(error)
-                toast.error(error.message)
-            })
-    }
+            } else {
+                // Handle registration failure here
+                console.error('User registration failed');
+                toast.error('User registration failed');
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error(error.message);
+        }
+    };
 
     return (
         <div className=" bg-sky-50">
