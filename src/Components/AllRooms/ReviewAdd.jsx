@@ -42,7 +42,7 @@ const ReviewAdd = ({ roomId, singleRoom, fetchData, setFetchData }) => {
             });
 
             const data = response.data;
-
+            console.log(data);
             if (data.status === 'success') {
                 toast.success('Success');
                 setFetchData(fetchData + 1);
@@ -59,11 +59,11 @@ const ReviewAdd = ({ roomId, singleRoom, fetchData, setFetchData }) => {
             setLoading(false);
 
             if (data.error) {
-                toast.error(data.error);
+                toast.error("You are not eligible for make review");
             }
         } catch (error) {
-            console.error('Error submitting data:', error);
-            toast.error(error.message);
+
+            toast.error("You are not eligible for make review");
             setLoading(false);
         }
     };
