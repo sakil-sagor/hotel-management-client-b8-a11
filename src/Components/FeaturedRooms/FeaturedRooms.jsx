@@ -26,7 +26,7 @@ const FeaturedRooms = () => {
                 setAllRooms(response?.data?.data?.result);
                 setCount(response?.data?.data?.pageCount);
                 setTotal(response?.data?.data?.totalRoom);
-                window.scrollTo(0, 0);
+
                 setLoading(false);
             } catch (error) {
                 setError(error);

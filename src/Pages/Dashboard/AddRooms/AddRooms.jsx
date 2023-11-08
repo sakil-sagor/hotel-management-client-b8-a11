@@ -83,15 +83,15 @@ const AddRooms = () => {
                     toast.success("success");
 
                 }
-                // setFormData({
-                //     size: '',
-                //     price: '',
-                //     description: '',
-                //     discount: '',
-                //     image: '',
-                //     totalSeat: ''
+                setFormData({
+                    size: '',
+                    price: '',
+                    description: '',
+                    discount: '',
+                    image: '',
+                    totalSeat: ''
 
-                // });
+                });
 
                 setLoading(false)
                 if (data.error) {
