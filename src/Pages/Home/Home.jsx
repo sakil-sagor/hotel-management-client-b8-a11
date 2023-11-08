@@ -1,3 +1,4 @@
+import BookingShortcut from "../../Components/BookingShortcut/BookingShortcut";
 import Emergency from "../../Components/Emergency/Emergency";
 import Header from "../../Components/Header/Header";
 import MapLocation from "../../Components/MapLocation/MapLocation";
@@ -17,6 +18,9 @@ const Home = () => {
             </div>
             <div className="">
                 <MapLocation></MapLocation>
+            </div>
+            <div>
+                <BookingShortcut></BookingShortcut>
             </div>
         </div>
 

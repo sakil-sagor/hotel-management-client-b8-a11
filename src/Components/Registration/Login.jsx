@@ -4,30 +4,62 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from '../../Context/AuthProvider';
+import useAxios from '../../hooks/useAxios';
 const Login = () => {
     const { signIn, googleLogin } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
-    const handleLogin = (e) => {
+    const axios = useAxios();
+
+
+    // const handleLogin = (e) => {
+    //     e.preventDefault();
+
+    //     const form = new FormData(e.currentTarget);
+    //     const email = form.get('email');
+    //     const password = form.get('password');
+
+    //     signIn(email, password)
+    //         .then(result => {
+    //             console.log(result?.user?.email);
+    //             axios.post('/accesstoken/generatetoken', { email: result?.user?.email })
+
+
+    //             toast.success("User login successfully ")
+    //             setTimeout(function () {
+
+    //                 navigate(location?.state ? location.state : '/');
+    //                 // navigate(location?.state.pathname ? location.state.pathname : '/');
+    //             }, 500);
+    //         })
+    //         .catch(error => {
+    //             console.error(error);
+    //             toast.error(error.message)
+    //         })
+    // }
+
+
+    const handleLogin = async (e) => {
         e.preventDefault();
-        // toast.success("Dontaion successfully added")
-        console.log(e.currentTarget);
+
         const form = new FormData(e.currentTarget);
         const email = form.get('email');
         const password = form.get('password');
-        signIn(email, password)
-            .then(result => {
-                toast.success("User login successfully ")
-                setTimeout(function () {
 
-                    navigate(location?.state ? location.state : '/');
-                    // navigate(location?.state.pathname ? location.state.pathname : '/');
-                }, 500);
-            })
-            .catch(error => {
-                console.error(error);
-                toast.error(error.message)
-            })
+        try {
+            const result = await signIn(email, password);
+            console.log(result?.user?.email);
+
+            await axios.post('/accesstoken/generatetoken', { email: result?.user?.email });
+
+            toast.success("User login successfully");
+            setTimeout(function () {
+                navigate(location?.state ? location.state : '/');
+            }, 500);
+        } catch (error) {
+            console.error(error);
+            toast.error(error.message);
+        }
     }
     const handleGoogleSignIn = () => {
         googleLogin()
