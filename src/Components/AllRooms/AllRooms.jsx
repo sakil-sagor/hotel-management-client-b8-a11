@@ -13,7 +13,7 @@ const AllRooms = () => {
     const [page, setPage] = useState(0);
     const [count, setCount] = useState(0)
     const [total, setTotal] = useState(0)
-    const limit = 5;
+    const limit = 9;
 
 
     useEffect(() => {
@@ -35,12 +35,7 @@ const AllRooms = () => {
         }
         fetchProducts();
     }, [page, total, sortByPrice])
-    // console.log(sortByPrice);
 
-    // if (loading) {
-    //     return <Loading></Loading>
-    // }
-    // console.log(loading);
     return (
         <div>
             <div className="py-4">
@@ -49,7 +44,7 @@ const AllRooms = () => {
                     <p>Total Result: <span>{total}</span></p>
                     <div>
                         <label htmlFor="">Sort By </label>
-                        {/* <input className="border border-gray-400 p-1 bg-sky-50 rounded" type="text" /> */}
+
                         <select
                             className="border  border-gray-300 py-2  text-gray-600 bg-sky-50 rounded-full px-3"
                             name='religion'

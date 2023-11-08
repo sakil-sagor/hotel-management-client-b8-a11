@@ -13,7 +13,7 @@ const FeaturedRooms = () => {
     const [page, setPage] = useState(0);
     const [count, setCount] = useState(0)
     const [total, setTotal] = useState(0)
-    const limit = 5;
+    const limit = 6;
 
 
     useEffect(() => {
