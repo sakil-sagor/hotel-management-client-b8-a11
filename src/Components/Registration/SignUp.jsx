@@ -66,7 +66,7 @@ const SignUp = ({ loginArea }) => {
 
     };
     return (
-        <div className=" bg-blue-50">
+        <div className=" bg-sky-50">
             <div className=''>
 
                 <form className='md:flex justify-center' onSubmit={handleSubmit}>
@@ -90,7 +90,7 @@ const SignUp = ({ loginArea }) => {
                         <br />
                         <div className='block m-auto  text-center'>
 
-                            <button className='p-2 w-full  bg-blue-700 text-white uppercase text-sm rounded-md hover:bg-blue-800' type="submit">Submit </button>
+                            <button className='p-2 w-full  bg-sky-700 text-white uppercase text-sm rounded-md hover:bg-sky-800' type="submit">Submit </button>
 
                         </div>
                         <div>
@@ -103,7 +103,7 @@ const SignUp = ({ loginArea }) => {
             </div>
             <ToastContainer
                 position="top-center"
-                autoClose={3000}
+                autoClose={1000}
                 theme="colored"
             />
         </div>

@@ -78,7 +78,7 @@ const Login = () => {
     }
 
     return (
-        <div className=" bg-blue-50">
+        <div className=" bg-sky-50">
             <div className='md:flex justify-center md:m-0'>
                 <div className='md:w-96 px-4 py-8  bg-white rounded-md shadow-2xl shadow-blue-300'>
 
@@ -96,20 +96,20 @@ const Login = () => {
 
                             <div className='mb-6'>
 
-                                <button className=' py-2 text-sm w-full text-white cursor-pointer rounded bg-blue-800 uppercase hover:bg-blue-900' type="submit">Login</button>
+                                <button className=' py-2 text-sm w-full text-white cursor-pointer rounded bg-sky-800 uppercase hover:bg-sky-900' type="submit">Login</button>
 
                             </div>
 
                         </div>
                     </form >
                     <div className='flex justify-between text-sm w-full' >
-                        <p ><button onClick={handleGoogleSignIn} className="border px-2 py-1 rounded bg-blue-200 hover:bg-blue-300 duration-200"> <AiFillGoogleCircle className='inline-block text-3xl text-gray-600 '></AiFillGoogleCircle> Google</button></p>
+                        <p ><button onClick={handleGoogleSignIn} className="border px-2 py-1 rounded bg-sky-200 hover:bg-sky-300 duration-200"> <AiFillGoogleCircle className='inline-block text-3xl text-gray-600 '></AiFillGoogleCircle> Google</button></p>
                     </div>
                 </div>
             </div>
             <ToastContainer
                 position="top-center"
-                autoClose={3000}
+                autoClose={1000}
                 theme="colored"
             />
 

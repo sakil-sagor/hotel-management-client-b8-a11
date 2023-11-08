@@ -69,7 +69,7 @@ const AddRooms = () => {
         formData.image = imageUrl;
 
         console.log(formData);
-        fetch('http://localhost:5000/api/v1/rooms/addrooms', {
+        fetch('https://assignment11ser.iitpark.com/api/v1/rooms/addrooms', {
             method: "POST",
             headers: {
                 'content-type': 'application/json'
@@ -104,10 +104,10 @@ const AddRooms = () => {
     };
 
     return (
-        <div className='bg-blue-50 min-h-screen'>
+        <div className='bg-sky-50 min-h-screen'>
             <div className=' pt-4  pb-24 '>
                 <div className='w-full md:2/4 lg:w-2/4 m-auto pt-12'>
-                    <div className='bg-blue-50 '>
+                    <div className='bg-sky-50 '>
                         <div className=' '>
                             <div className=" border shadow-md shadow-blue-300 px-2 py-6 md:p-8 text-center rounded-md">
                                 <h2 className='text-2xl font-bold text-blue-700'>Add Rooms Detials</h2>
@@ -221,7 +221,7 @@ const AddRooms = () => {
                                         ></textarea>
                                     </div>
                                     <div className=' mt-4 '>
-                                        <div className='flex items-center justify-center h-10  bg-indigo-500 rounded'>
+                                        <div className='flex items-center justify-center h-10  bg-sky-800 rounded'>
                                             <button className=' '>
                                                 <img className={`w-8 text-center  mx-auto ${!loading && "hidden"}`} src={blue} alt="" />
                                             </button>
@@ -236,9 +236,9 @@ const AddRooms = () => {
                             </div>
                         </div >
                         <ToastContainer
-                            position="top-right"
-                            autoClose={2000}
-                            theme="light"
+                            position="top-center"
+                            autoClose={1000}
+                            theme="colored"
                         />
                     </div >
                 </div>

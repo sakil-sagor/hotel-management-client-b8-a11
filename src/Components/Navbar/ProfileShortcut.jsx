@@ -25,7 +25,7 @@ const ProfileShortcut = ({ loginPhoto }) => {
 
                         <li className='ml-2 mt-10 md:mt-0 active border md:border-0  nav-bg '>
                             <NavLink to='/addRooms'>
-                                <span className="block py-2" >Add-Rooms</span>
+                                <span className="block py-2 text-white" >Add-Rooms</span>
                             </NavLink>
                         </li>
                     </ul>
@@ -35,7 +35,7 @@ const ProfileShortcut = ({ loginPhoto }) => {
             <hr />
 
             <div>
-                <button className="text-indigo-900 font-semibold hover:bg-white hover:rounded p-2 hover:text-indigo-700 mt-3" onClick={logOut}>Log Out</button>
+                <button className="text-red-600 text-lg font-semibold hover:bg-white hover:rounded p-2 hover:text-indigo-700 mt-3" onClick={logOut}>Log Out</button>
             </div>
         </div>
     )

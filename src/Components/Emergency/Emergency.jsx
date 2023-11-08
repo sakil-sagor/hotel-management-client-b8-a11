@@ -19,7 +19,7 @@ const Emergency = () => {
                         <p className="text-xl font-semibold	hover:text-gray-800">100+ Rooms</p>
                     </div>
                 </div>
-                <div className="bg-blue-600 py-16 text-center flex justify-center	items-center" >
+                <div className="bg-sky-800 py-16 text-center flex justify-center	items-center" >
                     <div className="hover:text-gray-800 transition duration-500 ease-in-out  transform hover:-translate-y-1 hover:scale-110	">
                         <i class="fas fa-people-carry mr-2 text-4xl"></i>
                         <p className="text-xl font-semibold	hover:text-gray-800">Best Managment</p>

@@ -36,7 +36,7 @@ const RoomDetails = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                let url = `http://localhost:5000/api/v1/rooms/all/${roomId}`
+                let url = `https://assignment11ser.iitpark.com/api/v1/rooms/all/${roomId}`
                 const response = await axiosSecure.get(url);
                 console.log(response);
                 setSingleRoom(response?.data?.data);
@@ -72,7 +72,7 @@ const RoomDetails = () => {
         }
         if (bookDate) {
             try {
-                const response = await axiosSecure.put(`http://localhost:5000/api/v1/rooms/all/${roomId}`, bookingDate, {
+                const response = await axiosSecure.put(`https://assignment11ser.iitpark.com/api/v1/rooms/all/${roomId}`, bookingDate, {
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -209,9 +209,9 @@ const RoomDetails = () => {
                 }
             </div>
             <ToastContainer
-                position="top-right"
-                autoClose={2000}
-                theme="light"
+                position="top-center"
+                autoClose={1000}
+                theme="colored"
             />
         </div>
     );

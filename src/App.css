@@ -31,6 +31,20 @@ a.active {
     z-index: 99;
 }
 
+.cotanct-bottom-banner {
+    background-image: linear-gradient(rgb(3 169 244 / 45%), #052833e8), url(./assets/c1.jpg);
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.about-bottom-banner {
+    background-image: linear-gradient(rgb(3 169 244 / 45%), #052833e8), url(./assets/fort.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .active-profile-icon-area {
     display: none;
 }

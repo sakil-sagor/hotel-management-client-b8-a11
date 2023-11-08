@@ -11,7 +11,7 @@ const AllReviews = ({ singleRoom }) => {
         return `${day}-${month}-${year}`;
     };
     return (
-        <div className='shadow-2xl p-4 bg-indigo-200 rounded-lg'>
+        <div className='shadow-2xl p-4 bg-sky-200 rounded-lg'>
             {
                 !singleRoom?.review?.length ?
 
@@ -39,7 +39,7 @@ const AllReviews = ({ singleRoom }) => {
                                                         fullSymbol="fas fa-star star-icon"
                                                     >
                                                     </Rating>
-                                                    <span className="text-indigo-900 font-semibold">( {room?.rating} )</span>
+                                                    <span className="text-sky-800 font-semibold">( {room?.rating} )</span>
                                                 </p>
 
                                             </div>

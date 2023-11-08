@@ -12,7 +12,7 @@ const useRooms = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                let url = `http://localhost:5000/api/v1/rooms/all`
+                let url = `https://assignment11ser.iitpark.com/api/v1/rooms/all`
                 const response = await axios.get(url);
                 setAllRooms(response?.data?.data);
                 window.scrollTo(0, 0);

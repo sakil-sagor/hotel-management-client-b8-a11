@@ -19,7 +19,7 @@ const BookingSection = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                let url = `http://localhost:5000/api/v1/rooms/booking/${user?.email}`
+                let url = `https://assignment11ser.iitpark.com/api/v1/rooms/booking/${user?.email}`
                 const response = await axiosSecure.get(url);
                 setAllBooking(response?.data?.data);
                 setLoading(false);
@@ -43,7 +43,7 @@ const BookingSection = () => {
 
         if (currentDate <= oneDaysBeforeOrderDate) {
             try {
-                const response = await axiosSecure.delete(`http://localhost:5000/api/v1/rooms/booking?orderId=${orderId}&&productId=${productId}`);
+                const response = await axiosSecure.delete(`https://assignment11ser.iitpark.com/api/v1/rooms/booking?orderId=${orderId}&&productId=${productId}`);
 
                 const data = response.data;
                 console.log(data);
@@ -81,10 +81,10 @@ const BookingSection = () => {
                         {
                             !allBokking.length ?
                                 <div>
-                                    <h1 className="text-center text-2xl text-indigo-900 font-semibold mb-12">Oops! You Have no any Booked Room .</h1>
+                                    <h1 className="text-center text-2xl text-sky-800 font-semibold mb-12">Oops! You Have no any Booked Room .</h1>
                                     <div className="mt-24">
-                                        <h1 className="text-center text-2xl text-indigo-900 font-semibold mb-12">Want to make any Booking...?   </h1>
-                                        <p className="text-center"><NavLink className="transition duration-500 bg-indigo-900 text-white px-10 py-3 rounded font-semibold hover:text-indigo-900 hover:bg-white  d-button-solid border hover:border-indigo-900" to='/rooms'>Find Now</NavLink></p>
+                                        <h1 className="text-center text-2xl text-sky-800 font-semibold mb-12">Want to make any Booking...?   </h1>
+                                        <p className="text-center"><NavLink className="transition duration-500 bg-sky-900 text-white px-10 py-3 rounded font-semibold hover:text-sky-800 hover:bg-white  d-button-solid border hover:border-indigo-900" to='/rooms'>Find Now</NavLink></p>
                                     </div>
                                 </div>
 
@@ -111,9 +111,9 @@ const BookingSection = () => {
                     </div>
                 }
                 <ToastContainer
-                    position="top-right"
-                    autoClose={2000}
-                    theme="light"
+                    position="top-center"
+                    autoClose={1000}
+                    theme="colored"
                 />
             </div>
         </div>

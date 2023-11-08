@@ -81,7 +81,7 @@ const NotBookedUser = ({ singleRoom, loading, bookDate, bookedSeat, bookingSeat,
                             </div>
                         </div>
                         <div className=' mt-4 '>
-                            <div className='flex items-center justify-center h-10  bg-indigo-500 rounded'>
+                            <div className='flex items-center justify-center h-10 w-full bg-sky-800 rounded'>
                                 <button className=' '>
                                     <img className={`w-8 text-center  mx-auto ${!loading && "hidden"}`} src={blue} alt="" />
                                 </button>

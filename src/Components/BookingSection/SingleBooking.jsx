@@ -21,13 +21,13 @@ const SingleBooking = ({ booking, handelDelete, fetchData, setFetchData, ind }) 
                     <div className="lg:flex justify-between items-center">
                         <div className="flex items-center">
                             <img className="w-16 h-16" src={image} alt="" />
-                            <div className="text-blue-500 font-semibold ml-2">
+                            <div className="text-sky-800 font-semibold ml-2">
 
                                 <p> {item?._id} </p>
                                 <p>Date: {formatCreatedAt(item?.date)}</p>
                             </div>
                         </div>
-                        <div className="text-blue-500 font-semibold text-right">
+                        <div className="text-sky-800 font-semibold text-right">
                             <p> Price: $ {price * item?.bookingSeat}</p>
                         </div>
 
@@ -45,7 +45,7 @@ const SingleBooking = ({ booking, handelDelete, fetchData, setFetchData, ind }) 
                         </div>
                         <div>
                             <button className="cursor-pointer">
-                                <label htmlFor={`my_modal_${booking?.productId}`} className="cursor-pointer transition duration-500 bg-blue-500 text-white px-10 py-2 rounded font-semibold hover:text-blue-500 hover:bg-white  d-button-solid border hover:border-blue-500">Update </label>
+                                <label htmlFor={`my_modal_${booking?.productId}`} className="cursor-pointer transition duration-500 bg-sky-800 text-white px-10 py-2 rounded font-semibold hover:text-sky-800 hover:bg-white  d-button-solid border hover:border-blue-500">Update </label>
                             </button>
                             <input type="checkbox" id={`my_modal_${booking?.productId}`} className="modal-toggle" />
                             <UpdateBookFromBoking className="modal" _id={productId} fetchData={fetchData} booking={booking} setFetchData={setFetchData}></UpdateBookFromBoking>

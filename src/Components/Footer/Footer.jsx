@@ -15,7 +15,7 @@ const Footer = () => {
                                 <h1 className="text-2xl font-bold text-white "> <span className="text-blue-300">I-Dream</span>   </h1>
                             </div>
                         </Link>
-                        <p className="py-8 text-white font-semibold">Take our free delivery and found the gift of life!Contact us today to start crafting your bespoke event that will leave a lasting impression on you and your guests..Join us today and help make a positive impact in your community!</p>
+                        <p className="py-8 text-white font-semibold">Welcome to Dream Hotel Management, where luxury and comfort meet to create unforgettable experiences. We are not just a hotel; we are your gateway to a world of exquisite hospitality, where every moment is designed to surpass your expectations.</p>
 
                     </div>
                     {/* middle section */}
@@ -40,16 +40,17 @@ const Footer = () => {
                             <ul className="tab-list text-gray-300">
                                 <li className="cursor-pointer hover:underline"><Link to="/registration">Login</Link></li>
                                 <li className="cursor-pointer hover:underline"><Link to="/registration">Register</Link></li>
-                                <li className="cursor-pointer hover:underline"><Link to="/contactUs"> About Us</Link></li>
+                                <li className="cursor-pointer hover:underline"><Link to="/gallery"> Gallery</Link></li>
+                                <li className="cursor-pointer hover:underline"><Link to="/aboutus"> About Us</Link></li>
                                 <li className="cursor-pointer hover:underline"><Link to="/contactUs"> Contact Us</Link></li>
                             </ul >
                         </div >
                     </div>
                     {/* right section  */}
                     <div className="col-sapn-12 ">
-                        <div className="bg-indigo-200 border-l-4 border-pink-600 rounded-lg p-4">
+                        <div className="bg-sky-200 border-l-4 border-pink-600 rounded-lg p-4">
                             <i className="fas fa-headset text-pink-700 text-6xl"></i>
-                            <h1 className="text-2xl font-bold text-indigo-900 py-8">Emergency Cases</h1>
+                            <h1 className="text-2xl font-bold text-sky-800 py-8">Emergency Cases</h1>
                             <p className="text-gray-500">Please feel welcome to contact our friendly reception staff with any general enquiry </p>
                             <div className="flex  justify-start   text-gray-600 py-8 ">
                                 <p><i className="fas fa-phone text-3xl text-pink-700  mr-4">call us-</i></p>

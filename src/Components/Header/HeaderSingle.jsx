@@ -22,7 +22,7 @@ const HeaderSingle = (props) => {
                         <br />
                         <h4 className="text-xl my-10 text-white hidden md:block">{description}</h4>
                         <Link to='/rooms' >
-                            <button className='bg-white text-xl px-4 py-3 mt-3 rounded font-bold '>
+                            <button className=' border text-white duration-500 text-xl px-4 py-3 mt-3 rounded font-bold hover:bg-white  hover:text-sky-900 border-white'>
                                 Exprole Now
                             </button>
                         </Link>

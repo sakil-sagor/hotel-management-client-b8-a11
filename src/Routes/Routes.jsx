@@ -3,9 +3,11 @@ import ConfirmBookNow from "../Components/AllRooms/ConfirmBookNow";
 import RoomDetails from "../Components/AllRooms/RoomDetails";
 import Registration from "../Components/Registration/Registration";
 import Main from "../Layout/Main";
+import AboutUs from "../Pages/AboutUs/AboutUs";
 import ContactUs from "../Pages/ContactUs/ContactUs";
 import AddRooms from "../Pages/Dashboard/AddRooms/AddRooms";
 import ErroPage from "../Pages/ErrorPage/ErroPage";
+import Gallery from "../Pages/Gallery/Gallery";
 import Home from "../Pages/Home/Home";
 import MyBookings from "../Pages/MyBookings/MyBookings";
 import RoomsPage from "../Pages/RoomsPage/RoomsPage";
@@ -44,8 +46,16 @@ const router = createBrowserRouter([
             },
 
             {
+                path: "/gallery",
+                element: <Gallery></Gallery>
+            },
+            {
                 path: "/contactUs",
                 element: <ContactUs></ContactUs>
+            },
+            {
+                path: "/aboutus",
+                element: <AboutUs></AboutUs>
             },
 
             {

@@ -35,7 +35,7 @@ const ReviewAdd = ({ roomId, singleRoom, fetchData, setFetchData }) => {
         console.log(formData);
         console.log(roomId);
         try {
-            const response = await axiosSecure.post(`http://localhost:5000/api/v1/rooms/all/${roomId}`, formData, {
+            const response = await axiosSecure.post(`https://assignment11ser.iitpark.com/api/v1/rooms/all/${roomId}`, formData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -100,7 +100,7 @@ const ReviewAdd = ({ roomId, singleRoom, fetchData, setFetchData }) => {
                         ></textarea>
                     </div>
                     <div className=' mt-4 '>
-                        <div className='flex items-center justify-center h-10  bg-indigo-500 rounded'>
+                        <div className='flex items-center justify-center h-10  bg-sky-800 rounded'>
                             <button className=' '>
                                 <img className={`w-8 text-center  mx-auto ${!loading && "hidden"}`} src={blue} alt="" />
                             </button>
@@ -113,9 +113,9 @@ const ReviewAdd = ({ roomId, singleRoom, fetchData, setFetchData }) => {
                     </div>
                 </form>
                 <ToastContainer
-                    position="top-right"
-                    autoClose={2000}
-                    theme="light"
+                    position="top-center"
+                    autoClose={1000}
+                    theme="colored"
                 />
             </div>
         </div>
