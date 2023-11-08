@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
@@ -7,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from "../../Context/AuthProvider";
 import PrivateRoute from "../../Routes/PrivateRoute";
+import useAxios from "../../hooks/useAxios";
 import AllReviews from "./AllReviews";
 import BookingRoomSummary from "./BookingRoomSummary";
 import HotelFacility from "./HotelFacility";
@@ -30,14 +30,14 @@ const RoomDetails = () => {
     const userName = user?.displayName;
     const [bookedSeat, setBookedSeat] = useState(0)
     const navigate = useNavigate();
+    const axiosSecure = useAxios();
 
-
-
+    console.log(user);
     useEffect(() => {
         const fetchProducts = async () => {
             try {
                 let url = `http://localhost:5000/api/v1/rooms/all/${roomId}`
-                const response = await axios.get(url);
+                const response = await axiosSecure.get(url);
                 console.log(response);
                 setSingleRoom(response?.data?.data);
                 setBookedSeat(response?.data?.seatTotal)
@@ -49,12 +49,6 @@ const RoomDetails = () => {
         }
         fetchProducts();
     }, [roomId, fetchData])
-
-
-
-    console.log(singleRoom);
-
-
 
     // click for go to confirm booking page 
     const handleSubmit = (e) => {
@@ -69,44 +63,83 @@ const RoomDetails = () => {
     }
 
     // book now area 
-    const handleBookNow = (e) => {
+    // const handleBookNow = (e) => {
+    //     e.preventDefault();
+    //     const bookingDate = {
+    //         email: (userEmail),
+    //         bookingSeat: bookingSeat,
+    //         date: bookDate,
+    //         status: true,
+    //     }
+    //     if (bookDate) {
+    //         fetch(`http://localhost:5000/api/v1/rooms/all/${roomId}`, {
+    //             method: "PUT",
+    //             headers: {
+    //                 'content-type': 'application/json'
+    //             },
+    //             body: JSON.stringify(bookingDate)
+    //         })
+    //             .then(res => res.json())
+    //             .then(data => {
+    //                 if (data.status === "success") {
+    //                     setFetchData(fetchData + 1)
+    //                     toast.success("success");
+    //                     setLoading(false)
+    //                     setOrderNow(false)
+    //                     setBookingSeat('')
+    //                     setBookDate('')
+    //                 }
+    //                 if (data.error) {
+    //                     toast.error(" failed");
+    //                     setLoading(false)
+    //                 }
+    //             })
+    //     } else {
+    //         toast.error("Please Select a date for booking")
+    //     }
+    // }
+
+    const handleBookNow = async (e) => {
         e.preventDefault();
         const bookingDate = {
-            email: (userEmail),
+            email: userEmail,
             bookingSeat: bookingSeat,
             date: bookDate,
             status: true,
         }
 
-
-
         if (bookDate) {
-            fetch(`http://localhost:5000/api/v1/rooms/all/${roomId}`, {
-                method: "PUT",
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(bookingDate)
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.status === "success") {
-                        setFetchData(fetchData + 1)
-                        toast.success("success");
-                        setLoading(false)
-                        setOrderNow(false)
-                        setBookingSeat('')
-                        setBookDate('')
-                    }
-                    if (data.error) {
-                        toast.error(" failed");
-                        setLoading(false)
-                    }
-                })
+            try {
+                const response = await axiosSecure.put(`http://localhost:5000/api/v1/rooms/all/${roomId}`, bookingDate, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                const data = response.data;
+
+                if (data.status === "success") {
+                    setFetchData(fetchData + 1);
+                    toast.success("success");
+                    setLoading(false);
+                    setOrderNow(false);
+                    setBookingSeat('');
+                    setBookDate('');
+                } else if (data.error) {
+                    toast.error("failed");
+                    setLoading(false);
+                }
+            } catch (error) {
+                console.error(error);
+                toast.error("An error occurred");
+                setLoading(false);
+            }
         } else {
-            toast.error("Please Select a date for booking")
+            toast.error("Please Select a date for booking");
         }
     }
+
+
 
     // date fixer 
     const formatCreatedAt = (newdate) => {

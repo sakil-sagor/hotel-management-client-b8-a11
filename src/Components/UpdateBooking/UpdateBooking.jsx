@@ -2,11 +2,12 @@ import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import blue from '../../assets/blue.gif';
+import useAxios from "../../hooks/useAxios";
 
 
 const UpdateBooking = ({ singleRoom, userEmail, fetchData, setFetchData }) => {
     const { _id, bookingDate } = singleRoom;
-    console.log(_id);
+    const axiosSecure = useAxios();
     const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({
         productId: _id,
@@ -21,34 +22,33 @@ const UpdateBooking = ({ singleRoom, userEmail, fetchData, setFetchData }) => {
 
     };
 
+    const existtingbooking = bookingDate.filter(booked => booked.email === userEmail)
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(formData);
-        setLoading(true)
+        setLoading(true);
 
-        // Replace this with your API endpoint to update the product data
-        fetch(`http://localhost:5000/api/v1/rooms/booking/${userEmail}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.status === 'success') {
-                    setFetchData(fetchData + 1)
-                    toast.success("Successfully updated the Booking")
-                    setLoading(false)
-                }
-            })
-            .catch((error) => {
-                console.error('Error updating Booking:', error);
-                setLoading(false)
+        try {
+            const response = await axiosSecure.patch(`http://localhost:5000/api/v1/rooms/booking/${userEmail}`, formData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             });
 
-    }
+            const data = response.data;
+
+            if (data.status === 'success') {
+                setFetchData(fetchData + 1);
+                toast.success('Successfully updated the Booking');
+                setLoading(false);
+            }
+        } catch (error) {
+            console.error('Error updating Booking:', error);
+            toast.error('Failed to update Booking');
+            setLoading(false);
+        }
+    };
 
 
     return (
@@ -56,7 +56,7 @@ const UpdateBooking = ({ singleRoom, userEmail, fetchData, setFetchData }) => {
             <div className="modal-box">
                 <div>
                     {
-                        bookingDate?.map(booking =>
+                        existtingbooking?.map(booking =>
                             <div>
                                 <div>
                                     <form onSubmit={handleSubmit}>

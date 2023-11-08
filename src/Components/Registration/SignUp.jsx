@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const SignUp = ({ loginArea }) => {
-    const { createUser } = useContext(AuthContext);
+    const { createUser, updateProfileName, setUser } = useContext(AuthContext);
 
     const navigate = useNavigate()
 
@@ -46,6 +46,11 @@ const SignUp = ({ loginArea }) => {
         createUser(email, password)
             .then(result => {
                 console.log(result.user)
+
+                const user = result.user;
+                setUser(user);
+                updateProfileName()
+                // saveUser(disName, user.email, 'POST')
 
                 toast.success("User Register successfully ")
                 setTimeout(function () {

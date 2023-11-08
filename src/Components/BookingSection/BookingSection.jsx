@@ -1,10 +1,10 @@
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from "../../Context/AuthProvider";
 import blue from "../../assets/blue.gif";
+import useAxios from "../../hooks/useAxios";
 import SingleBooking from "./SingleBooking";
 
 
@@ -13,13 +13,14 @@ const BookingSection = () => {
     const [allBokking, setAllBooking] = useState([])
     const [loading, setLoading] = useState(true);
     const [fetchData, setFetchData] = useState(0)
+    const axiosSecure = useAxios();
 
     // get all booking from database 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
                 let url = `http://localhost:5000/api/v1/rooms/booking/${user?.email}`
-                const response = await axios.get(url);
+                const response = await axiosSecure.get(url);
                 setAllBooking(response?.data?.data);
                 setLoading(false);
             } catch (error) {
@@ -30,10 +31,7 @@ const BookingSection = () => {
     }, [fetchData])
 
 
-    console.log(allBokking);
-
-    // make the delete for booking 
-    const handelDelete = (productId, orderId, orderDate) => {
+    const handelDelete = async (productId, orderId, orderDate) => {
         console.log(productId, orderId, orderDate);
 
         const currentDate = new Date();
@@ -44,26 +42,25 @@ const BookingSection = () => {
         console.log(currentDate);
 
         if (currentDate <= oneDaysBeforeOrderDate || currentDate >= bookingorderDate) {
-            fetch(`http://localhost:5000/api/v1/rooms/booking?orderId=${orderId}&&productId=${productId}`, {
-                method: "DELETE",
-            })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
-                    if (data.status === 'success') {
-                        toast.success("Successfully Removed");
-                        const remainingData = allBokking.filter(booking => booking?.item?._id !== orderId)
-                        setAllBooking(remainingData)
-                    }
-                });
+            try {
+                const response = await axiosSecure.delete(`http://localhost:5000/api/v1/rooms/booking?orderId=${orderId}&&productId=${productId}`);
+
+                const data = response.data;
+                console.log(data);
+
+                if (data.status === 'success') {
+                    toast.success('Successfully Removed');
+                    const remainingData = allBokking.filter(booking => booking?.item?._id !== orderId);
+                    setAllBooking(remainingData);
+                }
+            } catch (error) {
+                console.error('Error while removing booking:', error);
+            }
         } else {
-            toast.error("Sorry you can not cancel this booking now!");
+            toast.error('Sorry, you cannot cancel this booking now!');
         }
+    };
 
-
-
-    }
-        ;
     return (
         <div>
             <div>

@@ -9,7 +9,7 @@ const Login = () => {
     const { signIn, googleLogin } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
-    const axios = useAxios();
+    const axiosSecure = useAxios();
 
 
     // const handleLogin = (e) => {
@@ -50,7 +50,7 @@ const Login = () => {
             const result = await signIn(email, password);
             console.log(result?.user?.email);
 
-            await axios.post('/accesstoken/generatetoken', { email: result?.user?.email });
+            await axiosSecure.post('/accesstoken/generatetoken', { email: result?.user?.email });
 
             toast.success("User login successfully");
             setTimeout(function () {

@@ -3,6 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from '../../Context/AuthProvider';
 import blue from "../../assets/blue.gif";
+import useAxios from '../../hooks/useAxios';
 
 const ReviewAdd = ({ roomId, singleRoom, fetchData, setFetchData }) => {
     const { bookingDate } = singleRoom
@@ -10,6 +11,7 @@ const ReviewAdd = ({ roomId, singleRoom, fetchData, setFetchData }) => {
     const userEmail = user?.email;
     const userName = user?.displayName;
     const [loading, setLoading] = useState(false)
+    const axiosSecure = useAxios();
     const [formData, setFormData] = useState({
         rating: '',
         feadback: '',
@@ -27,46 +29,46 @@ const ReviewAdd = ({ roomId, singleRoom, fetchData, setFetchData }) => {
 
     };
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true)
+        setLoading(true);
+        console.log(formData);
+        console.log(roomId);
+        try {
+            const response = await axiosSecure.post(`http://localhost:5000/api/v1/rooms/all/${roomId}`, formData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
-        // if (userEmail !== bookingDate?.email) {
-        //     setLoading(false)
-        //     return toast.error("Only booked user can make a review");
-        // }
-        fetch(`http://localhost:5000/api/v1/rooms/all/${roomId}`, {
-            method: "POST",
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === "success") {
-                    toast.success("success");
-                    setFetchData(fetchData + 1)
+            const data = response.data;
 
-                }
-                // setFormData({
-                //     size: '',
-                //     price: '',
-                //     description: '',
-                //     discount: '',
-                //     image: ''
+            if (data.status === 'success') {
+                toast.success('Success');
+                setFetchData(fetchData + 1);
+            }
 
-                // });
+            // setFormData({
+            //     size: '',
+            //     price: '',
+            //     description: '',
+            //     discount: '',
+            //     image: '',
+            // });
 
-                setLoading(false)
-                if (data.error) {
-                    toast.error(data.error);
-                }
-            })
+            setLoading(false);
 
-
+            if (data.error) {
+                toast.error(data.error);
+            }
+        } catch (error) {
+            console.error('Error submitting data:', error);
+            toast.error(error.message);
+            setLoading(false);
+        }
     };
+
+
 
     return (
         <div>

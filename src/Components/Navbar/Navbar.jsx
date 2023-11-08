@@ -10,6 +10,7 @@ import ProfileShortcut from "./ProfileShortcut";
 
 const Navbar = () => {
     const { user, logOut, darkMode } = useContext(AuthContext);
+    console.log(user);
 
     const [profileState, setProfileState] = useState('Off');
     // console.log(user)
