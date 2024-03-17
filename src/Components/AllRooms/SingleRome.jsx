@@ -20,7 +20,6 @@ const SingleRome = ({ room }) => {
         review?.forEach((item) => {
             sum += parseFloat(item.rating);
         });
-
         return (sum / review.length);
     }
     return (
