@@ -26,12 +26,11 @@ const useAxios = () => {
       (error) => {
         console.log("error tracked in the interceptor", error.response);
         if (error.response.status === 401 || error.response.status === 403) {
-          console
-            .log("logout the user")
-            // logOut()
-            //     .then(() => {
-            //         navigate('/registration')
-            //     })
+          console.log("logout the user");
+          logOut()
+            .then(() => {
+              navigate("/registration");
+            })
             .catch((error) => console.log(error));
         }
       }
